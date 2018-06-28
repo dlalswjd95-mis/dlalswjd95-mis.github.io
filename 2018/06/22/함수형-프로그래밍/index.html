@@ -12,18 +12,18 @@
     
         <meta name="keywords" content="javascript, FR" />
     
-    <meta name="description" content="[^id] 함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다. 각주입니다[^id] [^i">
+    <meta name="description" content="함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다.    객체지향이랑 뭐가 다른데?12">
 <meta name="keywords" content="javascript, FR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="함수형 프로그래밍의 정의 - part 1">
 <meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/06/22/함수형-프로그래밍/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
-<meta property="og:description" content="[^id] 함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다. 각주입니다[^id] [^i">
+<meta property="og:description" content="함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다.    객체지향이랑 뭐가 다른데?12">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-28T10:38:06.123Z">
+<meta property="og:updated_time" content="2018-06-28T10:43:41.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="함수형 프로그래밍의 정의 - part 1">
-<meta name="twitter:description" content="[^id] 함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다. 각주입니다[^id] [^i">
+<meta name="twitter:description" content="함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다.    객체지향이랑 뭐가 다른데?12">
     
 
     
@@ -166,7 +166,10 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>[^id] 함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다.<br> 각주입니다[^id]<br> [^id]: 각주에 대한 설명.</p>
+            <blockquote>
+<p><em>함수형 프로그래밍…? 자바스크립트는 분명 객체지향프로그래밍언어라고 배웠는데..ㅎ 최근 inflearn에서 유인동 강사의 자바스크립트강좌를 보고 새로 알게된 개념이다. 나의 첫 포스팅주제는 자바스크립트를 통해 배우는 함수형 프로그래밍이 될 것이다. 인프런강좌를 듣고 요약정리 그리고 추가적으로 느낀점등을 포스팅할 계획이다. </em></p>
+</blockquote>
+<hr>
 <h4 id="객체지향이랑-뭐가-다른데"><a href="#객체지향이랑-뭐가-다른데" class="headerlink" title="객체지향이랑 뭐가 다른데?"></a>객체지향이랑 뭐가 다른데?</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/* 데이터(객체)기준 */ </span><br><span class="line">duck.moveLeft();</span><br><span class="line">duck.moveRight();</span><br><span class="line">dog.moveLeft();</span><br><span class="line">dog.moveRight();</span><br><span class="line"></span><br><span class="line">/* 함수 기준 */ </span><br><span class="line">moveLeft(dog);</span><br><span class="line">moveRight(duck);</span><br><span class="line">moveLeft(&#123; x: 5, y: 2&#125;);</span><br><span class="line">moveRight(dog);</span><br></pre></td></tr></table></figure>
 <h5 id="위의-소스를-보면-위가-객체지향이고-아래가-함수형언어이다"><a href="#위의-소스를-보면-위가-객체지향이고-아래가-함수형언어이다" class="headerlink" title="위의 소스를 보면, 위가 객체지향이고, 아래가 함수형언어이다."></a>위의 소스를 보면, 위가 객체지향이고, 아래가 함수형언어이다.</h5><h4 id="즉-객체지향은-객체를-기준으로-하는-프로그래밍으로-데이터-객체-를-먼저-디자인하고-그-데이터에-맞는-메소드를-만드는-식이다"><a href="#즉-객체지향은-객체를-기준으로-하는-프로그래밍으로-데이터-객체-를-먼저-디자인하고-그-데이터에-맞는-메소드를-만드는-식이다" class="headerlink" title="즉, 객체지향은 객체를 기준으로 하는 프로그래밍으로, 데이터(객체)를 먼저 디자인하고 그 데이터에 맞는 메소드를 만드는 식이다."></a>즉, 객체지향은 객체를 기준으로 하는 프로그래밍으로, 데이터(객체)를 먼저 디자인하고 그 데이터에 맞는 메소드를 만드는 식이다.</h4><h4 id="함수형은-먼저-함수를-만들고-그-함수에-맞게-데이터-set를-구성하는-식이다"><a href="#함수형은-먼저-함수를-만들고-그-함수에-맞게-데이터-set를-구성하는-식이다" class="headerlink" title="함수형은 먼저 함수를 만들고 그 함수에 맞게 데이터 set를 구성하는 식이다."></a>함수형은 먼저 함수를 만들고 그 함수에 맞게 데이터 set를 구성하는 식이다.</h4>
         </div>
@@ -176,7 +179,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/06/22/함수형-프로그래밍/" data-id="cjiyeyke20000us27xgz0v9qx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/06/22/함수형-프로그래밍/" data-id="cjiyf2ajj00006c27p3xumwnt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
