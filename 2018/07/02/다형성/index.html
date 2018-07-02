@@ -6,24 +6,21 @@
     
 
     
-    <title>함수형으로전환하기(_each) - part2 | Dominoly&#39;s IT Blog</title>
+    <title>다형성-part2 | Dominoly&#39;s IT Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="javascript, FR, each, programming" />
+        <meta name="keywords" content="javascript, 다형성, programming" />
     
-    <meta name="description" content="보시면 _filter와 _map함수에서 중복되는 코드를 확인하실 수 있습니다....중복되는 부분   for문(루프) 해당 i번째 list를 참조하는 부분      위의 중복되는 부분을 _each라는 함수로 따로 빼내서 제거할 수 있습니다.   123456function _each(list, iter)&amp;#123;    for(var i =0 ; i &amp;lt;">
-<meta name="keywords" content="javascript, FR, each, programming">
+    <meta name="keywords" content="javascript, 다형성, programming">
 <meta property="og:type" content="article">
-<meta property="og:title" content="함수형으로전환하기(_each) - part2">
-<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/07/02/함수형으로전환하기-each함수/index.html">
+<meta property="og:title" content="다형성-part2">
+<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/07/02/다형성/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
-<meta property="og:description" content="보시면 _filter와 _map함수에서 중복되는 코드를 확인하실 수 있습니다....중복되는 부분   for문(루프) 해당 i번째 list를 참조하는 부분      위의 중복되는 부분을 _each라는 함수로 따로 빼내서 제거할 수 있습니다.   123456function _each(list, iter)&amp;#123;    for(var i =0 ; i &amp;lt;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-02T10:35:32.692Z">
+<meta property="og:updated_time" content="2018-07-02T10:38:23.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="함수형으로전환하기(_each) - part2">
-<meta name="twitter:description" content="보시면 _filter와 _map함수에서 중복되는 코드를 확인하실 수 있습니다....중복되는 부분   for문(루프) 해당 i번째 list를 참조하는 부분      위의 중복되는 부분을 _each라는 함수로 따로 빼내서 제거할 수 있습니다.   123456function _each(list, iter)&amp;#123;    for(var i =0 ; i &amp;lt;">
+<meta name="twitter:title" content="다형성-part2">
     
 
     
@@ -134,14 +131,14 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-함수형으로전환하기-each함수" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-다형성" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        함수형으로전환하기(_each) - part2
+        다형성-part2
         </h1>
     
 
@@ -151,44 +148,22 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/07/02/함수형으로전환하기-each함수/" class="article-date">
-            <time datetime="2018-07-02T08:55:53.000Z" itemprop="datePublished">2018-07-02</time>
+        <a href="/2018/07/02/다형성/" class="article-date">
+            <time datetime="2018-07-02T10:37:15.000Z" itemprop="datePublished">2018-07-02</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/javascript-FR-each-programming/">javascript, FR, each, programming</a>
+        <a class="tag-link" href="/tags/javascript-다형성-programming/">javascript, 다형성, programming</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>보시면 _filter와 _map함수에서 중복되는 코드를 확인하실 수 있습니다.<br>.<br>.<br>.<br><strong>중복되는 부분</strong> </p>
-<ol>
-<li>for문(루프)</li>
-<li>해당 i번째 list를 참조하는 부분    </li>
-</ol>
-<p>위의 중복되는 부분을 _each라는 함수로 따로 빼내서 제거할 수 있습니다.  </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_each</span>(<span class="params">list, iter</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span> ; i &lt; list.length; i++) &#123;</span><br><span class="line">        iter(list[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list; <span class="comment">//없어도 실행되는데 문제는 없음.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이 _each라는 함수는 인자로 list와  iter를 받아서 반복을 하는 함수입니다.<br>중복되는 for문을 그대로 가져오고, 받은 값을 그대로 리턴합니다. </p>
-<p>간단히 말해 _each함수는 for문의 역할을 완전히 위임하는 함수라고 보면 됩니다. </p>
-<hr>
-<p>먼저 _filter함수를 _each함수로 리펙토링합니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_filter</span>(<span class="params">list, predi</span>)</span>&#123; </span><br><span class="line">    <span class="keyword">var</span> new_list = []; </span><br><span class="line">    _each(list, <span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(predi(val)) new_list.push(val);</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="keyword">return</span> new_list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>_each(list, function(val)) –&gt; _each함수에서 list의 특정 i번째 요소를 하나하나씩 꺼내서 iter함수를 실행시킵니다.<br>위에서는 iter함수로 function(val){ if(predi(val)) new_list.push(val);} 를 보냅니다. 특정 i번째 요소들이 val로 들어가고<br>predi라는 조건이 true일때 val값이 new_list에 담겨 리턴됩니다. </p>
-<hr>
-<p>그다음 _map함수도 _each함수로 리펙토링합니다.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_map</span>(<span class="params">list, mapper</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> new_list = [];</span><br><span class="line">    _each(list, <span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">        new_list.push(mapper(val));</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> new_list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>_each함수에서 꺼내진 특정 i번쨰 요소들은 mapper에게 보냅니다.<br>여기에서는 mapper가 특정 i번쨰 요소의 name이나 age를 리턴합니다.<br>mapper(val)의 리턴값이 new_list에 담겨지고, 최종적으로 new_list를 리턴합니다. </p>
-<p>.<br>.<br>.<br>.</p>
-<hr>
-<blockquote>
-<p>다음 포스팅에서는 <strong>다형성</strong>에 대해서 배워볼게요!</p>
-</blockquote>
-
+            
         </div>
 
         <footer class="article-footer">
@@ -196,7 +171,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/07/02/함수형으로전환하기-each함수/" data-id="cjj44rec50004nc2719x19vzp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/07/02/다형성/" data-id="cjj44rebv0001nc27pnu4wzz7" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -317,20 +292,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/07/02/다형성/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            다형성-part2
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/06/28/함수형으로전환하기/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/07/02/함수형으로전환하기-each함수/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">함수형으로 전환하기(_filter, _map)- part 2</p>
+        <p class="article-nav-title">함수형으로전환하기(_each) - part2</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -480,7 +445,7 @@
     var disqus_shortname = 'dominonly';
     
     
-    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/07/02/함수형으로전환하기-each함수/';
+    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/07/02/다형성/';
     
     (function() {
     var dsq = document.createElement('script');
