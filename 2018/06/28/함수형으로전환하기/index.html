@@ -6,21 +6,26 @@
     
 
     
-    <title>함수형으로 전환하기 - part 2 | Dominoly&#39;s IT Blog</title>
+    <title>함수형으로 전환하기(_filter, _map)- part 2 | Dominoly&#39;s IT Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="javascript, FR, map, filter" />
     
-    <meta name="keywords" content="javascript, FR, map, filter">
+    <meta name="description" content="이번에는 아래와같은 문제를 명령형 프로그래밍코드로 해결한 뒤 , 함수형 프로그래밍으로 refactoring 하도록 하겠습니다.  12345678910var users = [            &amp;#123;id:1, name: &apos;ID&apos;, age:36&amp;#125;,            &amp;#123;id:2, name: &apos;BJ&apos;, age:32&amp;#125;,">
+<meta name="keywords" content="javascript, FR, map, filter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="함수형으로 전환하기 - part 2">
+<meta property="og:title" content="함수형으로 전환하기(_filter, _map)- part 2">
 <meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/06/28/함수형으로전환하기/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
+<meta property="og:description" content="이번에는 아래와같은 문제를 명령형 프로그래밍코드로 해결한 뒤 , 함수형 프로그래밍으로 refactoring 하도록 하겠습니다.  12345678910var users = [            &amp;#123;id:1, name: &apos;ID&apos;, age:36&amp;#125;,            &amp;#123;id:2, name: &apos;BJ&apos;, age:32&amp;#125;,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-28T09:47:58.249Z">
+<meta property="og:image" content="http://dlalswjd95-mis.github.io/images/result_1.PNG">
+<meta property="og:updated_time" content="2018-07-02T08:51:45.498Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="함수형으로 전환하기 - part 2">
+<meta name="twitter:title" content="함수형으로 전환하기(_filter, _map)- part 2">
+<meta name="twitter:description" content="이번에는 아래와같은 문제를 명령형 프로그래밍코드로 해결한 뒤 , 함수형 프로그래밍으로 refactoring 하도록 하겠습니다.  12345678910var users = [            &amp;#123;id:1, name: &apos;ID&apos;, age:36&amp;#125;,            &amp;#123;id:2, name: &apos;BJ&apos;, age:32&amp;#125;,">
+<meta name="twitter:image" content="http://dlalswjd95-mis.github.io/images/result_1.PNG">
     
 
     
@@ -138,7 +143,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-        함수형으로 전환하기 - part 2
+        함수형으로 전환하기(_filter, _map)- part 2
         </h1>
     
 
@@ -163,7 +168,63 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            
+            <p>이번에는 아래와같은 문제를 명령형 프로그래밍코드로 해결한 뒤 , 함수형 프로그래밍으로 refactoring 하도록 하겠습니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> users = [</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>: <span class="string">'ID'</span>, <span class="attr">age</span>:<span class="number">36</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>: <span class="string">'BJ'</span>, <span class="attr">age</span>:<span class="number">32</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>: <span class="string">'JM'</span>, <span class="attr">age</span>:<span class="number">32</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">4</span>, <span class="attr">name</span>: <span class="string">'PJ'</span>, <span class="attr">age</span>:<span class="number">27</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">5</span>, <span class="attr">name</span>: <span class="string">'HA'</span>, <span class="attr">age</span>:<span class="number">25</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">6</span>, <span class="attr">name</span>: <span class="string">'JE'</span>, <span class="attr">age</span>:<span class="number">26</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">7</span>, <span class="attr">name</span>: <span class="string">'JI'</span>, <span class="attr">age</span>:<span class="number">31</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">id</span>:<span class="number">8</span>, <span class="attr">name</span>: <span class="string">'MP'</span>, <span class="attr">age</span>:<span class="number">23</span>&#125;</span><br><span class="line">        ];</span><br></pre></td></tr></table></figure>
+<p>users라는 배열이 존재합니다. json표기법을 따르고 있네요..ㅎㅎ </p>
+<p>이 배열은 id, name, age를 가지는 8개의 객체를 포함합니다. </p>
+<p>위의 배열로 4가지 문제를 해결해 봅시다. </p>
+<ol>
+<li>나이가 30세 이상인 user를 거른다. </li>
+<li>걸러진 user들의 name을 수집한다. </li>
+<li>나이가 30세 미만인 user를 거른다. </li>
+<li><p>걸러진 user들의 age를 수집한다. </p>
+<hr>
+<ol>
+<li>나이가 30세 이상인 user를 거른다. </li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> user_over30 =[];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt; users.length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(users[i].age &gt;= <span class="number">30</span>)&#123;</span><br><span class="line">        user_over30.push(users[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(user_over30);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>user_over30이라는 빈 배열을 생성하고, </p>
+<p>for문으로 users배열 객체하나하나의 나이를 체크하여 </p>
+<p>30이 넘는 객체를 배열 user_over30 에 담아 콘솔창으로 확인합니다.</p>
+<p><strong>결과값</strong><br><img src="/images/result_1.PNG" alt=""><br>30세 이상인 user만 제대로 걸러냈습니다. </p>
+<hr>
+<ol start="2">
+<li><p>걸러진 user들의 name을 수집한다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> names = [];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span> ; i&lt; user_over30.length ; i++)&#123;</span><br><span class="line">    names.push(user_over30[i].name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(names);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>이번에는 30세 이상인 user들의 name이 담길  names라는 배열을 새롭게 생성합니다. </p>
+<p>그리고 for문을 돌려 i번째 user_over30의 이름을 하나씩 배열에 담습니다. </p>
+<p><strong>결과값</strong><br><img src="/images/result_2.PNG" alt=""><br>30세 이상인 user이 name을 수집했습니다. </p>
+<hr>
+<ol start="3">
+<li>나이가 30세 미만인 user를 거른다. </li>
+<li>걸러진 user들의 age를 수집한다.</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//3. 30세 미만인 users를 거른다.</span></span><br><span class="line">        <span class="keyword">var</span> users_under30 = [];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt;users.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(users[i].age &lt; <span class="number">30</span>)&#123;</span><br><span class="line">                users_under30.push(users[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(users_under30 );</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4. 30세 미만인 users의 ages를 수집한다.</span></span><br><span class="line">        <span class="keyword">var</span> ages = [];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>; i &lt; users_under30.length; i++)&#123;</span><br><span class="line">            ages.push(users_under30[i].age)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(ages);</span><br></pre></td></tr></table></figure>
+<p>이번은 위의 1번 2번에서 나이 조건을 30세 미만으로 바꾸기만 하면 됩니다. </p>
+<p><strong>결과값</strong><br><img src="/images/result_3.PNG" alt=""><br>30세 미만인 user와 그들의 age를 제대로 가져왔습니다.</p>
+<hr>
+<p>.<br>.<br>.</p>
+<h3 id="지금까지는-명령형-코드로-프로그래밍했습니다"><a href="#지금까지는-명령형-코드로-프로그래밍했습니다" class="headerlink" title="지금까지는 명령형 코드로 프로그래밍했습니다."></a>지금까지는 명령형 코드로 프로그래밍했습니다.</h3><h3 id="이제-함수형으로-전환하여-중복코드를-제거하고"><a href="#이제-함수형으로-전환하여-중복코드를-제거하고" class="headerlink" title="이제 함수형으로 전환하여 중복코드를 제거하고"></a>이제 함수형으로 전환하여 중복코드를 제거하고</h3><h3 id="좀-더-다형적이며-활용성-높은-코드로-바꿔보도록-합시다"><a href="#좀-더-다형적이며-활용성-높은-코드로-바꿔보도록-합시다" class="headerlink" title="좀 더 다형적이며 활용성 높은 코드로 바꿔보도록 합시다!!!"></a>좀 더 다형적이며 활용성 높은 코드로 바꿔보도록 합시다!!!</h3><p>.<br>.<br>.<br> <em>먼저 30세이상인 코드와 미만인 코드의 중복을 줄이고 싶네요.. 함수형프로그래밍에서 쉽게 줄일수있습니다^^</em></p>
+<p>  이 문제는 filter라는 함수를 통해 가능하답니다. </p>
+<h2 id="filter-로-리펙토링"><a href="#filter-로-리펙토링" class="headerlink" title="_filter 로 리펙토링!!"></a>_filter 로 리펙토링!!</h2><p>   filter라는 순수함수를 새롭게 생성하고 그냥 외부에서 변수를 받아와 필요한 시점에서만 사용되도록 만드는 것…</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_filter</span>(<span class="params">list, predi</span>)</span>&#123; <span class="comment">//여러번 사용할것을 감안해 users--&gt; list로 바꾸는것이좋음.</span></span><br><span class="line">    <span class="keyword">var</span> new_list = []; <span class="comment">// 위처럼 여러번 사용될 것이기 때문에 user_over30, user_under30 --&gt; new_list로 바꾸는게 좋아요..</span></span><br><span class="line">    </span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; users.length; i++)&#123;</span><br><span class="line">         <span class="keyword">if</span>(predi(users[i])) &#123; <span class="comment">//predi는 i번째 users라는 인자값을 받아 user.age &gt;= 30 라는</span></span><br><span class="line">             new_list.push(users[i]);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">return</span> new_list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> over_30 =  _filter(users, <span class="function"><span class="keyword">function</span>(<span class="params">user</span>)</span>&#123;<span class="keyword">return</span> user.age &gt;= <span class="number">30</span>;&#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(over_30);</span><br><span class="line">        </span><br><span class="line"> <span class="keyword">var</span> under_30 = _filter(users, <span class="function"><span class="keyword">function</span>(<span class="params">user</span>)</span>&#123;<span class="keyword">return</span> user.age &lt; <span class="number">30</span> ;&#125;);</span><br><span class="line">         <span class="built_in">console</span>.log(under_30);</span><br></pre></td></tr></table></figure>
+<p>_filter라는 함수는 list, predi라는 인자를 받습니다.<br>list, 즉 array 타입으로된 어떤 배열이 와도 됩니다. predi는 함수이고,<br>어떠한 판별 조건을 리턴해주는 역할을 합니다.</p>
+<p>이번에는 30세 이상, 또는 30세 미만이면~ 이라는 조건을 return하여 조건에 맞는 user들을<br>over_30과 under_30이라는 객체에 담았습니다. </p>
+<p> <strong>결과값</strong><br> <img src="/images/result_4.PNG" alt=""></p>
+<hr>
+<h2 id="map-으로-리펙토링"><a href="#map-으로-리펙토링" class="headerlink" title="_map 으로 리펙토링!!"></a>_map 으로 리펙토링!!</h2> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_map</span>(<span class="params">list, mapper</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> new_list = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>; i &lt; list.length; i++)&#123;</span><br><span class="line">        new_list.push(mapper(list[i]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> new_list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> names = _map(over_30, <span class="function"><span class="keyword">function</span>(<span class="params">user</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> user.name;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ages = _map(under_30, <span class="function"><span class="keyword">function</span>(<span class="params">user</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> user.age;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(names);</span><br><span class="line"><span class="built_in">console</span>.log(ages);</span><br></pre></td></tr></table></figure>
+<p> 우선 _map이라는 함수를 차근차근 살펴봅시다.<br> _map함수는 인자로 list와 mapper를 가지고 list는 _filter의 list인자와 같이 배열이라는 조건만 만족한다면<br> 어떠한 배열이 와도 상관없습니다.<br> mapper 인자는 함수형태이고, i번째 list를 인자로 보내서 i번째 list의 name, 또는 age를 return합니다.<br> 그런 다음, 새롭게 생성되었던 new_list 객체안에 조건을 만족하는 list의 name또는 age가 담기게 됩니다.<br> 최종적으로, 그 new_list를 리턴하면서 이 함수의 역할은 끝나게 됩니다. </p>
+<p> 우리는 위에서 걸러진 list인 over_30과 under_30을 list인자로 보내야 합니다.<br> 그리고 mapper인자로 조건에 만족하는 list의 name을 리턴하는 것을 보내서 names라는 객체에 담아 콘솔로 확인합니다.<br> (age의 경우도 같습니다.) </p>
+<p> <strong>결과값</strong><br> <img src="/images/result_5.PNG" alt=""></p>
+<h3 id="filter함수는-그-자체로-함수이기때문에-위처럼-꼭-user들을-거르는것이외에도-다른-작업에서-사용될-수-있습니다"><a href="#filter함수는-그-자체로-함수이기때문에-위처럼-꼭-user들을-거르는것이외에도-다른-작업에서-사용될-수-있습니다" class="headerlink" title="_filter함수는 그 자체로 함수이기때문에 위처럼 꼭 user들을 거르는것이외에도 다른 작업에서 사용될 수 있습니다."></a>_filter함수는 그 자체로 함수이기때문에 위처럼 꼭 user들을 거르는것이외에도 다른 작업에서 사용될 수 있습니다.</h3><h3 id="이-함수를-사용하기위해선-인자값의-형태를-배열값으로-지켜주면서-predi부분은-순수함수를-만족하는-인자를-넘겨주면-됩니다"><a href="#이-함수를-사용하기위해선-인자값의-형태를-배열값으로-지켜주면서-predi부분은-순수함수를-만족하는-인자를-넘겨주면-됩니다" class="headerlink" title="이 함수를 사용하기위해선 인자값의 형태를 배열값으로 지켜주면서, predi부분은 순수함수를 만족하는 인자를 넘겨주면 됩니다."></a>이 함수를 사용하기위해선 인자값의 형태를 배열값으로 지켜주면서, predi부분은 순수함수를 만족하는 인자를 넘겨주면 됩니다.</h3><p>.<br>.<br>.</p>
+<blockquote>
+<p>다음 포스팅에서는 <strong>each함수</strong>를 통해서 <strong>for문 중복을 제거</strong>해보도록 하겠습니다. </p>
+</blockquote>
+
         </div>
 
         <footer class="article-footer">
@@ -171,7 +232,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/06/28/함수형으로전환하기/" data-id="cjizu2swp0001vk27wni5lcmx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/06/28/함수형으로전환하기/" data-id="cjj3xet360001tw27rn548uwy" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -318,7 +379,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
-                            <p class="item-title"><a href="/2018/06/28/함수형으로전환하기/" class="title">함수형으로 전환하기 - part 2</a></p>
+                            <p class="item-title"><a href="/2018/06/28/함수형으로전환하기/" class="title">함수형으로 전환하기(_filter, _map)- part 2</a></p>
                             <p class="item-date"><time datetime="2018-06-28T13:39:56.000Z" itemprop="datePublished">2018-06-28</time></p>
                         </div>
                     </li>
