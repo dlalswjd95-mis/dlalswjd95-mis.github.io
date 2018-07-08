@@ -6,21 +6,24 @@
     
 
     
-    <title>다형성-part2 | Dominoly&#39;s IT Blog</title>
+    <title>오라클 Intro (user생성 및 테이블작성) | Dominoly&#39;s IT Blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="javascript, 다형성, programming" />
+        <meta name="keywords" content="oracle" />
     
-    <meta name="keywords" content="javascript, 다형성, programming">
+    <meta name="description" content="Oracle Intro가장 먼저 (ctrl + R) 후, cmd 입력해서 콘솔창을 엽니다. frontspace라는 DBF 파일을 생성합니다. 오라클에서는 tablespace라는 큰 개념을 이용합니다. 12345SQL&amp;gt; create tablespace frontspace  2  datafile &amp;apos;C:\oraclexe\app\oracle\orad">
+<meta name="keywords" content="oracle">
 <meta property="og:type" content="article">
-<meta property="og:title" content="다형성-part2">
-<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/07/02/다형성/index.html">
+<meta property="og:title" content="오라클 Intro (user생성 및 테이블작성)">
+<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/07/08/오라클intro/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
+<meta property="og:description" content="Oracle Intro가장 먼저 (ctrl + R) 후, cmd 입력해서 콘솔창을 엽니다. frontspace라는 DBF 파일을 생성합니다. 오라클에서는 tablespace라는 큰 개념을 이용합니다. 12345SQL&amp;gt; create tablespace frontspace  2  datafile &amp;apos;C:\oraclexe\app\oracle\orad">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-02T10:38:23.056Z">
+<meta property="og:updated_time" content="2018-07-08T06:41:10.607Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="다형성-part2">
+<meta name="twitter:title" content="오라클 Intro (user생성 및 테이블작성)">
+<meta name="twitter:description" content="Oracle Intro가장 먼저 (ctrl + R) 후, cmd 입력해서 콘솔창을 엽니다. frontspace라는 DBF 파일을 생성합니다. 오라클에서는 tablespace라는 큰 개념을 이용합니다. 12345SQL&amp;gt; create tablespace frontspace  2  datafile &amp;apos;C:\oraclexe\app\oracle\orad">
     
 
     
@@ -127,18 +130,18 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Javascript/">Javascript</a>
+    <a class="page-title-link" href="/categories/oracle/">oracle</a>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-다형성" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-오라클intro" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        다형성-part2
+        오라클 Intro (user생성 및 테이블작성)
         </h1>
     
 
@@ -148,22 +151,44 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/07/02/다형성/" class="article-date">
-            <time datetime="2018-07-02T10:37:15.000Z" itemprop="datePublished">2018-07-02</time>
+        <a href="/2018/07/08/오라클intro/" class="article-date">
+            <time datetime="2018-07-08T05:39:26.000Z" itemprop="datePublished">2018-07-08</time>
         </a>
     </div>
 
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/javascript-다형성-programming/">javascript, 다형성, programming</a>
+        <a class="tag-link" href="/tags/oracle/">oracle</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            
+            <h2 id="Oracle-Intro"><a href="#Oracle-Intro" class="headerlink" title="Oracle Intro"></a>Oracle Intro</h2><p>가장 먼저 (ctrl + R) 후, cmd 입력해서 콘솔창을 엽니다.</p>
+<h3 id="frontspace라는-DBF-파일을-생성합니다"><a href="#frontspace라는-DBF-파일을-생성합니다" class="headerlink" title="frontspace라는 DBF 파일을 생성합니다."></a>frontspace라는 DBF 파일을 생성합니다.</h3><p> 오라클에서는 tablespace라는 큰 개념을 이용합니다.<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; create tablespace frontspace</span><br><span class="line">  2  datafile &apos;C:\oraclexe\app\oracle\oradata\XE\frontspace.dbf&apos;</span><br><span class="line">  3  size 2M;</span><br><span class="line"></span><br><span class="line">Tablespace created.</span><br></pre></td></tr></table></figure></p>
+<p> frontspace라는 db를 생성합니다. </p>
+<h3 id="개발자를-위한-새로운-user를-생성합니다"><a href="#개발자를-위한-새로운-user를-생성합니다" class="headerlink" title="개발자를 위한 새로운 user를 생성합니다."></a>개발자를 위한 새로운 user를 생성합니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; create user dominonly</span><br><span class="line">  2  identified by 1234</span><br><span class="line">  3  default tablespace frontspace</span><br><span class="line">  4  quota unlimited on frontspace;</span><br><span class="line"></span><br><span class="line">User created.</span><br></pre></td></tr></table></figure>
+<p> db를 관리하는 dba가 아닌 개발자는  database를 건드릴 수 있는 권한이 없기 때문에<br> 관리자로부터 권한을 받아내야 합니다. 그러기 위해서는 db에 새로운 자신의 계정을<br> 생성한 뒤에, dba로부터 권한을 받아야 합니다. 실제 실무에서 db를 건드려야 하는 상황이<br> 왔을때, 함부로 db password나 name을 요구하면 스파이로 오해받을 수 있습니다^^;;;</p>
+<p> 저같은 경우 계정명-&gt; dominonly, 패스워드-&gt; 1234로 설정하였습니다.<br> db를 생성할때 default로 입력될 tablespace를 위에서 만들었던 frontspace로 셋팅합니다. </p>
+<p> 수정은 ed 라는 편집기로 가능합니다(여기서는 ;이 아니라 /로 문장이 끝났음을 알려줍니다.) </p>
+<h3 id="생성된-유저를-확인해봅니다"><a href="#생성된-유저를-확인해봅니다" class="headerlink" title="생성된 유저를 확인해봅니다."></a>생성된 유저를 확인해봅니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; run</span><br><span class="line">  1  create user dominonly</span><br><span class="line">  2  identified by 1234</span><br><span class="line">  3  default tablespace frontspace</span><br><span class="line">  4* quota unlimited on frontspace</span><br><span class="line">create user front</span><br><span class="line">            *</span><br><span class="line">ERROR at line 1:</span><br><span class="line">ORA-01920: user name &apos;FRONT&apos; conflicts with another user or role name</span><br></pre></td></tr></table></figure>
+<h3 id="새로운-cmd창을-열어-생생된-user로-접속해봅니다"><a href="#새로운-cmd창을-열어-생생된-user로-접속해봅니다" class="headerlink" title="새로운 cmd창을 열어 생생된 user로 접속해봅니다."></a>새로운 cmd창을 열어 생생된 user로 접속해봅니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Leeminjeong&gt;sqlplus</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.2.0 Production on 토 7월 7 09:56:08 2018</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Enter user-name: front/front</span><br><span class="line">ERROR:</span><br><span class="line">ORA-01045: user FRONT lacks CREATE SESSION privilege; logon denied</span><br></pre></td></tr></table></figure>
+<p>접속권한 오류가 뜨는 것을 확인할 수 있습니다. </p>
+<h3 id="다시-이전-cmd창으로-와서-생성한-계정에-권한을-부여합니다"><a href="#다시-이전-cmd창으로-와서-생성한-계정에-권한을-부여합니다" class="headerlink" title="다시 이전 cmd창으로 와서 생성한 계정에 권한을 부여합니다."></a>다시 이전 cmd창으로 와서 생성한 계정에 권한을 부여합니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; grant create session to dominonly;</span><br><span class="line"></span><br><span class="line">Grant succeeded.</span><br></pre></td></tr></table></figure>
+<h3 id="두번째-cmd창에서-접속된-것을-확인해-볼-수-있습니다"><a href="#두번째-cmd창에서-접속된-것을-확인해-볼-수-있습니다" class="headerlink" title="두번째 cmd창에서 접속된 것을 확인해 볼 수 있습니다."></a>두번째 cmd창에서 접속된 것을 확인해 볼 수 있습니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Enter user-name: dominonly/1234</span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production</span><br></pre></td></tr></table></figure>
+<h3 id="첫번째-cmd에서-user에게-table을-만드는-권한도-부여합니다"><a href="#첫번째-cmd에서-user에게-table을-만드는-권한도-부여합니다" class="headerlink" title="첫번째 cmd에서 user에게 table을 만드는 권한도 부여합니다."></a>첫번째 cmd에서 user에게 table을 만드는 권한도 부여합니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; grant create table to dominonly;</span><br><span class="line"></span><br><span class="line">Grant succeeded.</span><br></pre></td></tr></table></figure>
+<h3 id="table을-만듭니다"><a href="#table을-만듭니다" class="headerlink" title="table을 만듭니다."></a>table을 만듭니다.</h3><p>저는 fruit의 정보를 담은 table을 생성해 보았습니다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; run</span><br><span class="line">  1  create table fruit(</span><br><span class="line">  2   name varchar(20)</span><br><span class="line">  3  , price number default 0</span><br><span class="line">  4  , loc varchar(30)</span><br><span class="line">  5* )</span><br><span class="line"></span><br><span class="line">Table created.</span><br></pre></td></tr></table></figure>
+<h3 id="이제-table의-데이터를-생성합니다"><a href="#이제-table의-데이터를-생성합니다" class="headerlink" title="이제 table의 데이터를 생성합니다."></a>이제 table의 데이터를 생성합니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; insert into fruit(name,price,loc) values(&apos;배&apos;,2000,&apos;나주&apos;);</span><br><span class="line"></span><br><span class="line">1 row created.</span><br><span class="line"></span><br><span class="line">SQL&gt; insert into fruit(name,price,loc) values(&apos;사과&apos;,1000,&apos;대구&apos;);</span><br><span class="line"></span><br><span class="line">1 row created.</span><br><span class="line"></span><br><span class="line">SQL&gt; insert into fruit(name,price,loc) values(&apos;참외&apos;,1500,&apos;성주&apos;);</span><br><span class="line"></span><br><span class="line">1 row created.</span><br><span class="line"></span><br><span class="line">SQL&gt; insert into fruit(name,price,loc) values(&apos;바나나&apos;,3000,&apos;필리핀&apos;);</span><br><span class="line"></span><br><span class="line">1 row created.</span><br><span class="line"></span><br><span class="line">SQL&gt; insert into fruit(name,price,loc) values(&apos;딸기&apos;,4000,&apos;이마트&apos;);</span><br><span class="line"></span><br><span class="line">1 row created.</span><br></pre></td></tr></table></figure>
+<p>5개의 데이터를 담아보았습니다.<br>여기서 중요한데, commit이라는 과정을 꼭 거쳐야지만 입력된 데이터를<br>확정시킬 수 있습니다. commit을 하지 않으면 애써 입력한 데이터들을 모두<br>잃을 수 있으니까 유의해야합니다. </p>
+<h3 id="Commit-해서-확정시킵니다"><a href="#Commit-해서-확정시킵니다" class="headerlink" title="Commit 해서 확정시킵니다."></a>Commit 해서 확정시킵니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SQL&gt; commit;</span><br><span class="line"></span><br><span class="line">Commit complete.</span><br></pre></td></tr></table></figure>
+<h3 id="table을-확인해봅니다"><a href="#table을-확인해봅니다" class="headerlink" title="table을 확인해봅니다."></a>table을 확인해봅니다.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SQL&gt; select * from fruit;</span><br><span class="line"></span><br><span class="line">NAME                                          PRICE LOC</span><br><span class="line">---------------------------------------- ---------- ------------------------------------------------------------</span><br><span class="line">배                                             2000 나주</span><br><span class="line">사과                                           1000 대구</span><br><span class="line">참외                                           1500 성주</span><br><span class="line">바나나                                         3000 필리핀</span><br><span class="line">딸기                                           4000 이마트</span><br></pre></td></tr></table></figure>
+<p>만약 table의 가로길이를 조절하고 싶다면<br>SQL&gt; set line 300; 라고 입력하면 됩니다. </p>
+<h3 id="oracle나가기"><a href="#oracle나가기" class="headerlink" title="oracle나가기!!"></a>oracle나가기!!</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; exit</span><br><span class="line">Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production</span><br></pre></td></tr></table></figure>
+<p>간단하게 exit이라고 입력하면 나갈수있습니다.</p>
+
         </div>
 
         <footer class="article-footer">
@@ -171,7 +196,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/07/02/다형성/" data-id="cjjcffkxr0000i027g6nf84sg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/07/08/오라클intro/" data-id="cjjcffky00001i02799u1do6q" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -292,20 +317,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/07/08/오라클intro/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            오라클 Intro (user생성 및 테이블작성)
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/07/02/함수형으로전환하기-each함수/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/07/02/다형성/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">함수형으로전환하기(_each) - part2</p>
+        <p class="article-nav-title">다형성-part2</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -464,7 +479,7 @@
     var disqus_shortname = 'dominonly';
     
     
-    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/07/02/다형성/';
+    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/07/08/오라클intro/';
     
     (function() {
     var dsq = document.createElement('script');
