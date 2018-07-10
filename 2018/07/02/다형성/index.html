@@ -12,15 +12,18 @@
     
         <meta name="keywords" content="javascript, 다형성, programming" />
     
-    <meta name="keywords" content="javascript, 다형성, programming">
+    <meta name="description" content="이번에는 다형성에 대해 알아볼게요!  이미 존재하는 filter, map 메소드우리가 그동안 만들었던 세가지 함수(_filter, _each, _map)는 이미 자바스크립트에 존재하는 메소드들입니다.  먼저 _map 함수와 같은 기능을 하는 map이라는 메소드를 살펴보겠습니다.12345console.log(            [1,2,3].map(fun">
+<meta name="keywords" content="javascript, 다형성, programming">
 <meta property="og:type" content="article">
 <meta property="og:title" content="다형성-part2">
 <meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/07/02/다형성/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
+<meta property="og:description" content="이번에는 다형성에 대해 알아볼게요!  이미 존재하는 filter, map 메소드우리가 그동안 만들었던 세가지 함수(_filter, _each, _map)는 이미 자바스크립트에 존재하는 메소드들입니다.  먼저 _map 함수와 같은 기능을 하는 map이라는 메소드를 살펴보겠습니다.12345console.log(            [1,2,3].map(fun">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-07-02T10:38:23.056Z">
+<meta property="og:updated_time" content="2018-07-10T06:10:20.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="다형성-part2">
+<meta name="twitter:description" content="이번에는 다형성에 대해 알아볼게요!  이미 존재하는 filter, map 메소드우리가 그동안 만들었던 세가지 함수(_filter, _each, _map)는 이미 자바스크립트에 존재하는 메소드들입니다.  먼저 _map 함수와 같은 기능을 하는 map이라는 메소드를 살펴보겠습니다.12345console.log(            [1,2,3].map(fun">
     
 
     
@@ -163,7 +166,36 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            
+            <blockquote>
+<p>이번에는 다형성에 대해 알아볼게요!</p>
+</blockquote>
+<h3 id="이미-존재하는-filter-map-메소드"><a href="#이미-존재하는-filter-map-메소드" class="headerlink" title="이미 존재하는 filter, map 메소드"></a>이미 존재하는 filter, map 메소드</h3><p>우리가 그동안 만들었던 세가지 함수(_filter, _each, _map)는 이미 자바스크립트에 존재하는 메소드들입니다. </p>
+<p>먼저 _map 함수와 같은 기능을 하는 map이라는 메소드를 살펴보겠습니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">            [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].map(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> val*<span class="number">2</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        );</span><br></pre></td></tr></table></figure></p>
+<p>map은 Array라는 내장객체에 이미 존재하는 함수입니다.<br>배열에 map이라는 함수를 적용하고, val이라는 값을 받아 배열 순서대로 2를<br>곱하여 결과값을 리턴합니다. </p>
+<p>이번에는 filter 메소드를 살펴보겠습니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">            [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].filter(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> val % <span class="number">2</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        );</span><br></pre></td></tr></table></figure>
+<p>filter함수도 Array 객체안에 이미 존재하는 함수입니다.<br>이번에는 1부터 4까지 배열을 받아 2로 나누어 지지 않는 것들을 차례로 리턴해줍니다.</p>
+<h3 id="메소드를-따로-함수로-정의하는-이유"><a href="#메소드를-따로-함수로-정의하는-이유" class="headerlink" title="메소드를 따로 함수로 정의하는 이유"></a>메소드를 따로 함수로 정의하는 이유</h3><p> 하지만 우리가 그동안 왜 이미있는 것들을 만들었는지 궁금하지 않나요?</p>
+<p> 그 이유는 이미존재하는 함수는 사실 함수가 아니라 Array객체의 메소드 입니다.</p>
+<p> 그렇기 떄문에 해당 instance가 아니면 사용할 수 없습니다.<br> 즉, Array가 아닌 객체들에서는 사용할 수 없다는 것이죠.<br> 그래서, 다형성을 지원하기 어려운 부분이 있습니다.</p>
+<p>  하지만,<br>  함수가 기준이 되는 함수형 프로그래밍에서는<br>  함수를 먼저 만들고,<br>  그 함수에 맞는 데이터을 구성해서 함수에 적용하는 식으로 프로그래밍을 하게 됩니다.<br>  이는 굉장히 유연하고 실용적인 형태라고 볼 수 있겠죠! </p>
+<p>  그래서</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">          <span class="built_in">document</span>.querySelectorAll(<span class="string">'*'</span>).map(<span class="function"><span class="keyword">function</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">               <span class="keyword">return</span> node.nodeName;</span><br><span class="line">           &#125;)</span><br><span class="line">        );</span><br></pre></td></tr></table></figure>
+<p>위를 실행하게 되면<br>Uncaught TypeError: document.querySelectorAll(…).map is not a function<br>이와같이 map이라는 메소드가 실행되지 않는 것을 볼 수 있습니다.</p>
+<p>실제로,</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="built_in">document</span>.querySelectorAll(<span class="string">'*'</span>));</span><br></pre></td></tr></table></figure>
+<p>를 해보면 배열과 같은 형태를 갖추고 있는 것을 확인할  수 있습니다.</p>
+<p>하지만, 이는 array_like 로 실제 Array객체가 아닌 NodeList라는 프로토타입을 가지는걸 확인하실수있습니다.<br>그렇기 때문에 Array객체의 메소드인 map이 실행되지 않는 다는 뜻이죠.</p>
+<p>반면에 , 우리가 만들었던 _map함수를 이용하면<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">           _map(<span class="built_in">document</span>.querySelectorAll(<span class="string">'*'</span>), <span class="function"><span class="keyword">function</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">               <span class="keyword">return</span> node.nodeName;</span><br><span class="line">           &#125;)</span><br><span class="line">       );</span><br></pre></td></tr></table></figure></p>
+<p>결과값 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// (7) ["HTML", "HEAD", "META", "TITLE", "BODY", "SCRIPT", "SCRIPT"]</span></span><br></pre></td></tr></table></figure>
+<p>위와 같이 제대로 된 결과를 얻을 수 있습니다.</p>
+<h3 id="외부-다형성과-내부-다형성"><a href="#외부-다형성과-내부-다형성" class="headerlink" title="외부 다형성과 내부 다형성"></a>외부 다형성과 내부 다형성</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_map([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], <span class="function"><span class="keyword">function</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> v + <span class="number">10</span>;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>위에서 function(v){return v+10} 부분을 콜백함수라고 부르기도 합니다.<br>함수형프로그래밍에서는 두번째 함수가 어떤 역할을 하는 함수인지에 따라서 다양한 이름을 가지는 것이 중요합니다.<br>콜백함수는 무조건 어떤일을 다~ 수행된 다음에 디시 돌려주는 것을 뜻하는 데요.</p>
+<p>이전에 우리가 만들었던 두번째 함수인 predi, iter, mapper 처럼 각각의 역할이 다른 함수들을 다르게 이름짓는 것이 좋습니다<br>이런 두번쨰 함수들을 보조함수라고 부르는데 , </p>
+<p>_map, _each, _filter가 외부에서 큰 틀을 잡았다면(외부 다형성) , </p>
+<p>이 보조함수들은 실제로 개발자가 원하는 일들을 수행시키기 위해 정의하는 부분(내부 다형성)이라고 보면 되겠습니다.</p>
+
         </div>
 
         <footer class="article-footer">
@@ -171,7 +203,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/07/02/다형성/" data-id="cjjcffkxr0000i027g6nf84sg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/07/02/다형성/" data-id="cjjfaovdj0000g427g3h5kwxc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
