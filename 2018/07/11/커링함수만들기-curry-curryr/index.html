@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>커링함수만들기(_curry,_curryr) | Dominoly&#39;s IT Blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="javascript, _curry, _curryr, programming" />
+    
+    <meta name="description" content="커링(Curry)   커링이란 다중 인수 (혹은 여러 인수의 튜플)을 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 것을 말한다.     한마디로, 함수에 인자를 하나씩 적용해 나가다가 필요한 인자가 모두 채워지면   함수 본체를 실행하는 기법입니다.     자바스크립트에서는 커링기법이 지원되지 않지만   앞에 포스팅에서 다뤘듯이 자바스크립트는 일">
+<meta name="keywords" content="javascript, _curry, _curryr, programming">
+<meta property="og:type" content="article">
+<meta property="og:title" content="커링함수만들기(_curry,_curryr)">
+<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/07/11/커링함수만들기-curry-curryr/index.html">
+<meta property="og:site_name" content="Dominoly&#39;s IT Blog">
+<meta property="og:description" content="커링(Curry)   커링이란 다중 인수 (혹은 여러 인수의 튜플)을 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 것을 말한다.     한마디로, 함수에 인자를 하나씩 적용해 나가다가 필요한 인자가 모두 채워지면   함수 본체를 실행하는 기법입니다.     자바스크립트에서는 커링기법이 지원되지 않지만   앞에 포스팅에서 다뤘듯이 자바스크립트는 일">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-11T10:52:35.695Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="커링함수만들기(_curry,_curryr)">
+<meta name="twitter:description" content="커링(Curry)   커링이란 다중 인수 (혹은 여러 인수의 튜플)을 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 것을 말한다.     한마디로, 함수에 인자를 하나씩 적용해 나가다가 필요한 인자가 모두 채워지면   함수 본체를 실행하는 기법입니다.     자바스크립트에서는 커링기법이 지원되지 않지만   앞에 포스팅에서 다뤘듯이 자바스크립트는 일">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://dlalswjd95-mis.github.io/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Javascript/">Javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/oracle/">oracle</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://about.me/minjeong">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/javascript/">javascript</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-커링함수만들기-curry-curryr" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        커링함수만들기(_curry,_curryr)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/07/11/커링함수만들기-curry-curryr/" class="article-date">
+            <time datetime="2018-07-11T09:47:24.000Z" itemprop="datePublished">2018-07-11</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/javascript-curry-curryr-programming/">javascript, _curry, _curryr, programming</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="커링-Curry"><a href="#커링-Curry" class="headerlink" title="커링(Curry)"></a>커링(Curry)</h3><p>   커링이란 다중 인수 (혹은 여러 인수의 튜플)을 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 것을 말한다.</p>
+<hr>
+<p>   한마디로, <strong>함수에 인자를 하나씩 적용해 나가다가 필요한 인자가 모두 채워지면<br>   함수 본체를 실행하는 기법</strong>입니다. </p>
+<p>   자바스크립트에서는 커링기법이 지원되지 않지만<br>   앞에 포스팅에서 다뤘듯이 자바스크립트는 일급함수가 지원되고,<br>   얼마든지 평가시점을 마음대로 다룰 수 있기 때문에 커링과 같은 기법을 구현할 수 있습니다. </p>
+<p>   커링함수는 다음과 같습니다. </p>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_curry</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> fn(a, b);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>   커링은 인자로 함수(fn)를 받고, 커링함수를 실행하는 즉시<br>   안쪽함수가 리턴됩니다. 그리고 a라는 인자를 받은 뒤 또 b를 인자로 받는 함수가<br>   리턴됩니다. b를 인자로 받으면 fn(a,b)이라는 본체함수가 실행됩니다. </p>
+<p>   만약 인자 두개를 받아서 더하는 add함수를 만든다고 하면<br>   일반적으로 아래와 같이 만듭니다. </p>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add= <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">return</span> a+b;</span><br><span class="line">         &#125;;</span><br><span class="line">         <span class="built_in">console</span>.log(add(<span class="number">10</span>,<span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+<p>결과값으로 15라는 결과를 얻겠죠. </p>
+<p>커리함수같은 경우에, add함수를 만들때 아래처럼 _curry로 감싸주기만하면<br>add함수는 커링이 되는 함수로 구현됩니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add= _curry(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a+b;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>함수가 동작하는 순서는 다음과 같습니다. </p>
+<ol>
+<li>add라는 함수를 만들때 _curry로 감쌉니다. </li>
+<li>add라는 함수는 fn이 됩니다. </li>
+<li><p>add함수는 return fn(a, b); 이곳에 위치하게된다. </p>
+</li>
+<li><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">                 <span class="keyword">return</span> fn(a, b);</span><br><span class="line">             &#125; </span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">이 부분이 제일 처음 호출된다. </span></span><br><span class="line"><span class="string">다시말해, </span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">                     <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">                         <span class="keyword">return</span> fn(a, b);</span><br><span class="line">                     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>위처럼 된다고 볼수있겠다. </p>
+<ol start="5">
+<li>인자 a를 먼저 받고, 그 다음에 b를 받은 다음에,<br> 처음에 받아두었던 fn이 나중에 실행된다. </li>
+</ol>
+<p>아래 예제를 통해 이해를 도와봅시다ㅎㅎ</p>
+<h3 id="결과값-맞춰보기"><a href="#결과값-맞춰보기" class="headerlink" title="결과값 맞춰보기"></a>결과값 맞춰보기</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add10 = add(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(add10(<span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+<p>결과값은?? 10+5인 15가 됩니다.</p>
+<p>동작순서는 다음과 같습니다. </p>
+<ol>
+<li><p>먼저 인자 10을 받은 add함수의 리턴값이 add10이라는 객체로 들어갑니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add10 = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="number">10</span></span>)</span>&#123;</span><br><span class="line">                             <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">                                 <span class="keyword">return</span> fn(a, b);</span><br><span class="line">                             &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>add10 이라는 함수에 인자 5가 들어갑니다.<br> 그리고, add10이 실행되는 즉시 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn(a, b);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">이부분이 실행됩니다. 인자 b에 5가 들어가구요. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3. 그럼 본체함수인 fn(a,b)가 실행됩니다. </span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a+b;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>바로 이부분이 fn이었죠.<br>그래서 a에는 10, b에는 5가 차례대로 모두 받아졌을때<br>본체함수가 실행되어 5 + 10 인 15라는 결과값을 얻게됩니다. </p>
+<p>그래서 ,<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(add(<span class="number">5</span>)(<span class="number">3</span>)); <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">10</span>)(<span class="number">3</span>)); <span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<p>1번은 결과가 8이되고<br>2번은 13이 됩니다. </p>
+<hr>
+<p>‘<br>‘<br>‘</p>
+<p>결국은, 본체함수인<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a+b;</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure></p>
+<p>이 부분을 값으로 들고있다가 나중에 원하는 시점에 최종적으로 평가하는 기법입니다. </p>
+<p>계속해서 이러한 기법을 통해서.<br>함수가 함수를 대신 실행하거나, 함수가 함수를 리턴하면서<br>함수를 조합해 나가는 것이 바로 함수형 프로그래밍입니다.</p>
+<p>_curry는 함수형 프로그래밍의 응용사례를 잘 보여주고 있습니다.<br>_curry함수로 적용했을 때에는 함수로 인자를 하나만 적용하게 되면 함수를 리턴하게 됩니다.</p>
+<p>하지만 위의 방식으로는<br>console.log(add(1,2));<br>이것의 결과값은 3이 아니라 함수를 리턴하게 됩니다.</p>
+<p>그 이유는 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>위의 함수를 리턴하는 것에서 그치기 때문입니다.<br>만약 커리함수를 위처럼 인자두개가 들어오면 함수를 리턴하지 않고<br>즉시 값을 도출하게끔 만들려면 조건문을 추가합니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_curry</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(agument.length == <span class="number">2</span>) <span class="keyword">return</span> fn(a, b);</span><br><span class="line">                    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> fn(a, b);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<p>위처럼 조건문을 통해서 인자값이 2개면 본체함수를 실행하도록 만들수 있습니다. </p>
+<p>하지만 저기에도 return을 두번한다는 문제가 있어요.<br>그래서 그걸 해결하기 위해 아래처럼 수정합니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_curry</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> agument.length == <span class="number">2</span> ? fn(a, b) : <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123; <span class="keyword">return</span> fn(a, b);&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<p>이번에는 인자 두개를 받아서 빼기를 하는 함수를 구현해보겠습니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> sub = _curry(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> a - b;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">10</span>, <span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+<p>결과값은 5가 되겠죠. </p>
+<p>더 나아가서<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sub10 = sub(<span class="number">10</span>);</span><br><span class="line"> <span class="built_in">console</span>.log(sub10(<span class="number">5</span>));</span><br></pre></td></tr></table></figure></p>
+<p>위를 실행하면, 5가 됩니다. </p>
+<p>하지만 , 표현이 좋지만은 않습니다. </p>
+<p>sub10이라는 객체에 sub(10)이라는 함수가 들어오고<br>sub10(5)라는 것은 sub(10)함수안에 5가 들어간 것이라고 볼 수 있습니다. </p>
+<blockquote>
+<p>그렇게 되면, 들어오는 인자인 5에 sub10이라는 함수를 적용하는것이니까<br>5-10이 되어야 좀 더 자연스러운 표현같지 않나요…?<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(sub(<span class="number">10</span>, <span class="number">5</span>)); <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(sub10(<span class="number">5</span>)); <span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p> 1번경우는 10-5가 자연스럽지만,<br> 2번은 5에 10을 빼는 것처럼 표현되죠.<br> 그래서 표현을 좀더 자연스럽게 하기위해서<br> 원래 같은 경우 _curry는 왼쪽에서 부터 인자를 적용해나가는데,</p>
+<p> 새롭게 _curryr이라는 함수를 생성해서<br> 오른쪽에서부터 인자를 적용해나가도록 할 수 있습니다.<br> _curry뿐만아니라 다른 함수에서도 자연스러운 표현을 위해서<br> 뒤에 r이라고 많이 붙인다고 해요. r은 right를 의미하겠죠!하하 </p>
+<p>  <strong>_curryr</strong>은<br>  _curry와 같은 동작을 하지만 단지, 오른쪽에서부터 인자를 적용해 나간다~ 는 점만<br> 다를 뿐입니다!! </p>
+<p> _curryr은 다음과 같습니다. </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_curryr</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> agument.length == <span class="number">2</span> ? fn(a, b) : <span class="function"><span class="keyword">function</span>(<span class="params">b</span>)</span>&#123; <span class="keyword">return</span> fn(b, a);&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<p>인자값이 2개일 때는 아까처럼 순서대로 적용하지만,<br>인자가 1개인 경우에는 return fn(b, a); 이런 식으로 a와 b의 순서를 바꿔<br>두번째 인자에서 처음에 들어왔던 인자를 빼도록 합니다. </p>
+<p>그럼 위의 2번은 5 - 10 인 -5가 리턴됩니다. </p>
+<hr>
+<p>지금까지 커링기법에 대해서 알아봤어요. </p>
+<p>다음 포스팅은 원하는 값을 얻어오는 _get함수에 대해서 다룰게요ㅎㅎ</p>
+
+        </div>
+
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://dlalswjd95-mis.github.io/2018/07/11/커링함수만들기-curry-curryr/" data-id="cjjgzyaf60004s027z3ffngag" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/2min_0nly/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/2minjeong" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="https://plus.google.com/u/0/101574005949064924489" target="_blank" rel="noopener">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/dlalswjd95-mis" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/07/08/오라클intro/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">오라클 Intro (user생성 및 테이블작성)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/javascript/">javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/11/커링함수만들기-curry-curryr/" class="title">커링함수만들기(_curry,_curryr)</a></p>
+                            <p class="item-date"><time datetime="2018-07-11T09:47:24.000Z" itemprop="datePublished">2018-07-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/oracle/">oracle</a></p>
+                            <p class="item-title"><a href="/2018/07/08/오라클intro/" class="title">오라클 Intro (user생성 및 테이블작성)</a></p>
+                            <p class="item-date"><time datetime="2018-07-08T05:39:26.000Z" itemprop="datePublished">2018-07-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/02/다형성/" class="title">다형성-part2</a></p>
+                            <p class="item-date"><time datetime="2018-07-02T10:37:15.000Z" itemprop="datePublished">2018-07-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/02/함수형으로전환하기-each함수/" class="title">함수형으로전환하기(_each) - part2</a></p>
+                            <p class="item-date"><time datetime="2018-07-02T08:55:53.000Z" itemprop="datePublished">2018-07-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/06/28/함수형으로전환하기/" class="title">함수형으로 전환하기(_filter, _map)- part 2</a></p>
+                            <p class="item-date"><time datetime="2018-06-28T13:39:56.000Z" itemprop="datePublished">2018-06-28</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR/">javascript, FR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR-each-programming/">javascript, FR, each, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR-map-filter-programming/">javascript, FR, map, filter,  programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-curry-curryr-programming/">javascript, _curry, _curryr, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-다형성-programming/">javascript, 다형성, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/javascript-FR/" style="font-size: 10px;">javascript, FR</a> <a href="/tags/javascript-FR-each-programming/" style="font-size: 10px;">javascript, FR, each, programming</a> <a href="/tags/javascript-FR-map-filter-programming/" style="font-size: 10px;">javascript, FR, map, filter,  programming</a> <a href="/tags/javascript-curry-curryr-programming/" style="font-size: 10px;">javascript, _curry, _curryr, programming</a> <a href="/tags/javascript-다형성-programming/" style="font-size: 10px;">javascript, 다형성, programming</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 Minjeong Lee</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'dominonly';
+    
+    
+    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/07/11/커링함수만들기-curry-curryr/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
