@@ -21,7 +21,7 @@
 <meta property="og:description" content="웹사이트를 만들기 전에 요청한 정보를 response해줄 서버가 필요합니다.다양한 서버들이 존재하지만 저는 node.js 서버를 구축해보겠습니다!console창을 통해서도 코드 작성이 가능하지만 1회성코드에 불과하기 때문에에디터를 js파일로 저장하여 개발하는 것이 좋아요!   node.js는 이미 만들어진 모듈을 가지고 쉽게 구축할 수 있습니다.모듈은 누">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://dlalswjd95-mis.github.io/images/node_1.PNG">
-<meta property="og:updated_time" content="2018-08-03T13:09:45.047Z">
+<meta property="og:updated_time" content="2018-08-03T13:13:14.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node.js 구축하기">
 <meta name="twitter:description" content="웹사이트를 만들기 전에 요청한 정보를 response해줄 서버가 필요합니다.다양한 서버들이 존재하지만 저는 node.js 서버를 구축해보겠습니다!console창을 통해서도 코드 작성이 가능하지만 1회성코드에 불과하기 때문에에디터를 js파일로 저장하여 개발하는 것이 좋아요!   node.js는 이미 만들어진 모듈을 가지고 쉽게 구축할 수 있습니다.모듈은 누">
@@ -203,7 +203,11 @@
 <p>express모듈을 설치했으면 webserver1에 node_modules라는 파일이 생성된것을 볼 수 있습니다.<br>설치가 제대로 됐다는 것입니다.<br>이제 main.js에서 express를 객체로 받아옵니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br></pre></td></tr></table></figure></p>
 <p>그리고 express 생성자를 호출합니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = express(); <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
 <p>app이라는 객체로 받아옵니다. </p>
-<p>여기서 중요한점!! 객체 app와 객체 http 중 종속적인 요소는 app이기 때문에<br>http서버를 업그레이드 시킨다는 의미로<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> server = http.createServer(app); <span class="comment">//2</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">위와 같이 기존의 코드를 바꿔줍니다. </span></span><br><span class="line"><span class="string">이제, express의 지원을 받는 서버가 되었습니다. </span></span><br><span class="line"><span class="string">논리상 1번이 먼저오고, 그 다음에 2번 줄이 와야 합니다. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">express 모듈은 미들웨어라 불리는 각종 기능들을 지원하는데, </span></span><br><span class="line"><span class="string">이 미들웨어를 호출할 때는 use()메서드를 사용합니다. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line">app.use(express.static(__dirname));</span><br></pre></td></tr></table></figure></p>
+<p>여기서 중요한점!! 객체 app와 객체 http 중 종속적인 요소는 app이기 때문에<br>http서버를 업그레이드 시킨다는 의미로 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> server = http.createServer(app);</span><br></pre></td></tr></table></figure>
+<p>위와 같이 기존의 코드를 바꿔줍니다.<br>이제, express의 지원을 받는 서버가 되었습니다.<br>논리상 1번이 먼저오고, 그 다음에 2번 줄이 와야 합니다. </p>
+<p>express 모듈은 미들웨어라 불리는 각종 기능들을 지원하는데,<br>이 미들웨어를 호출할 때는 use()메서드를 사용합니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(express.static(__dirname));</span><br></pre></td></tr></table></figure>
 <p>정적 자원들의 위치를 알려주는 static메서드를 사용하고<br>그리고 __dirname이라는 변수를 통해<br>지금 실행중인 파일의 디렉토리를 가져올 수 있습니다. </p>
 <p>** __ 가 붙은 형태의 변수는 node.js의 전역변수입니다. 이미 개발자가 정해놓은 변수이다. </p>
 <p>express로 업그레이드 하기 전에는 클라이언트의 요청을 받는 메서드가 server.on이었으나,<br>express에서도 요청을 처리하는 use라는 메서드가 지원됩니다. </p>
@@ -221,7 +225,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/08/03/node-js-1/" data-id="cjkdwqbm10006m427hnjnmd0e" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/03/node-js-1/" data-id="cjke0bwo50000t827v0nwst59" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
