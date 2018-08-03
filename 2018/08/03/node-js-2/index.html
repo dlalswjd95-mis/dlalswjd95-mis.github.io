@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Node.js로 채팅창 구현하기 | Dominoly&#39;s IT Blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="node.js, javascript, webserver" />
+    
+    <meta name="description" content="node js로 채팅창 구현하기Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은">
+<meta name="keywords" content="node.js, javascript, webserver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js로 채팅창 구현하기">
+<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/08/03/node-js-2/index.html">
+<meta property="og:site_name" content="Dominoly&#39;s IT Blog">
+<meta property="og:description" content="node js로 채팅창 구현하기Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://dlalswjd95-mis.github.io/images/node_3.PNG">
+<meta property="og:updated_time" content="2018-08-03T15:11:35.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js로 채팅창 구현하기">
+<meta name="twitter:description" content="node js로 채팅창 구현하기Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은">
+<meta name="twitter:image" content="http://dlalswjd95-mis.github.io/images/node_3.PNG">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://dlalswjd95-mis.github.io/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Javascript/">Javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Node-js/">Node.js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/oracle/">oracle</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://about.me/minjeong">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Node-js/">Node.js</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-node-js-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Node.js로 채팅창 구현하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/08/03/node-js-2/" class="article-date">
+            <time datetime="2018-08-03T13:18:41.000Z" itemprop="datePublished">2018-08-03</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/node-js-javascript-webserver/">node.js, javascript, webserver</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="node-js로-채팅창-구현하기"><a href="#node-js로-채팅창-구현하기" class="headerlink" title="node js로 채팅창 구현하기"></a>node js로 채팅창 구현하기</h2><h3 id="Web-socket의-등장"><a href="#Web-socket의-등장" class="headerlink" title="Web socket의 등장"></a>Web socket의 등장</h3><p>원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에<br>실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에<br>stateless하다고 표현합니다.</p>
+<p>따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은 구현이 불가능하였습니다.<br>그렇게 때문에 , 채팅을 제작하려면 java, c, c#과 같은 응용 프로그램을 이용해야 했습니다.</p>
+<p>그러나 HTML5에서 지원하는 Web Socket과 Node.js의 socket.io를 사용하면 웹상에서도 실시간 통신이<br>가능합니다. 즉, stateful한 것이라고 볼 수 있습니다. </p>
+<p>하지만 주의할 점이 있습니다. 웹소켓과 socket.io는 java, c#과 같은 언어에서 지원하는 소켓과는 틀리기 때문에<br>반드시 웹서버 위에서 구동됩니다.<br>따라서 기존에 node.js에서 구현하였던 웹서버 객체들은 그대로 사용해야 합니다. </p>
+<p>이전 포스팅에서 짰던 코드를 다시 복습해봅시다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>); <span class="comment">//http객체 생성</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>); <span class="comment">//express외부모듈 객체로 받기</span></span><br><span class="line"><span class="keyword">var</span> app = express(); <span class="comment">//express생성자 객체생성 </span></span><br><span class="line"><span class="keyword">var</span> server = http.createServer(app); <span class="comment">// 기존 웹 서버 업그레이드 </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(express.static(__dirname)); <span class="comment">//클라이언트의 요청마다 조건문으로 라우팅 처리할 필요없음.</span></span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">8989</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//이번에는 8989포트에서 서버가동</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"웹서버 8989에서 가동중..."</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>8989에서 가동하는 web server를 만들었습니다. </p>
+<p>이제 실시간 통신이 가능한 socket server를 만들어 보겠습니다. 이는 웹서버를 기반으로 돌아가기때문에<br>반드시 기존의 web server도 필요하다는 점을 잊으면 안됩니다!! </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socketio = <span class="built_in">require</span>(<span class="string">"socket.io"</span>);</span><br></pre></td></tr></table></figure>
+<p>socket.io는 외부모듈이기 때문에 </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install socket.io</span><br></pre></td></tr></table></figure>
+<p>설치를 꼭 해주어야 합니다. </p>
+<blockquote>
+<p>socket은 개발자가 네트워크에 대한 지식없이 단지, socketio라는 모듈을 메모리에 올려두고<br>메소드를 통해 조작만 하면 쉽게 구현할 수 있습니다. </p>
+</blockquote>
+<p>웹소켓은 웹기반 가상소켓이기 때문에 반드시 웹브라우저 클라이언트들만 접속이 가능합니다.<br>반면, Net이라는 모듈은 브라우저이외의 어떤 형태의 클라이언트건 다 인식할 수 있습니다.<br>** Net Module : TCP 프로토콜 기반의 소켓 프로그래밍을 지원하는 코어 모듈.</p>
+<p>채팅화면을 구현한 client1.html이라는 파일을 webserver1에 만듭니다. </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>접속클라이언트<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        .wrapper&#123;</span></span><br><span class="line"><span class="undefined">            width: 350px;</span></span><br><span class="line"><span class="undefined">            background: steelblue;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .top&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .top &gt; input&#123;</span></span><br><span class="line"><span class="undefined">            width: 98%;</span></span><br><span class="line"><span class="undefined">            font-size: 25px;</span></span><br><span class="line"><span class="undefined">            background: dodgerblue;</span></span><br><span class="line"><span class="undefined">            color: white;</span></span><br><span class="line"><span class="undefined">            font-weight: bold;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .content &gt; textarea&#123;</span></span><br><span class="line"><span class="undefined">            width: 98%;</span></span><br><span class="line"><span class="undefined">            height: 250px;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .footer&gt;input&#123;</span></span><br><span class="line"><span class="undefined">            width: 98%;</span></span><br><span class="line"><span class="undefined">            height: 30px;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> socket; <span class="comment">//대화용 소켓생성 </span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">//버튼누르면 노드서버에 소켓을 통해 접속!</span></span></span><br><span class="line"><span class="javascript">          $(<span class="string">"#bt"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">              socket = io(); <span class="comment">//접속이 성공되면, 대화용 소켓이 반환됨!!</span></span></span><br><span class="line"><span class="javascript">              <span class="comment">//서버가 보낸 데이터 받기!!</span></span></span><br><span class="line"><span class="javascript">              socket.on(<span class="string">"message"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                  <span class="comment">//textarea에 출력한다.</span></span></span><br><span class="line"><span class="javascript">                 <span class="keyword">var</span> area = <span class="built_in">document</span>.getElementById(<span class="string">"area"</span>);</span></span><br><span class="line"><span class="javascript">                 area.append(data.msg+<span class="string">"\n"</span>);</span></span><br><span class="line"><span class="undefined">              &#125;)</span></span><br><span class="line"><span class="undefined">          &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="javascript">        <span class="comment">//연결되어있는 서버에 메세지 보내기</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">enter</span>(<span class="params">obj</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span>(event.keyCode === <span class="number">13</span>)&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//메세지를 보내는 이벤트</span></span></span><br><span class="line"><span class="javascript">                socket.emit(<span class="string">"message"</span>, &#123;<span class="string">"msg"</span>:<span class="string">""</span>+obj.value+<span class="string">""</span>&#125;); </span></span><br><span class="line"><span class="javascript">                obj.value=<span class="string">""</span>; <span class="comment">//입력한 글씨 다시 지우기</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"top"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"접속"</span> <span class="attr">id</span>=<span class="string">"bt"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">"area"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">onkeyup</span>=<span class="string">"enter(this)"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/node_3.PNG" alt=""><br>접속버튼을 클릭하면 노드 서버에 접속을 시도하고, 성공하면 대화용 socket을 반환합니다.<br>그리고 클라이언트가 입력창에 텍스트를 치고 엔터키를 누르면<br>enter함수가 호출되면서 연결되어있는 서버에 텍스트를 포함한 메시지가 전송됩니다. </p>
+<p>이제, 소켓 서버를 가동시키고 , 접속자들을 감지합니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = socketio.listen(server); <span class="comment">//소켓 서버를 가동!</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"소켓서버도 가동"</span>);</span><br><span class="line">io.sockets.on(<span class="string">"connection"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123; <span class="comment">//sockets는 접속을 걸어온 접속자들을 의미!</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"접속자 발견!!"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>접속자들의 socket들을 담을 배열객체를 생성하고,<br>소켓에 접속할 때마다 배열에 socket을 담습니다.<br>그리고 클라이언트가 emit()으로 data를 보냈다면, 받는 쪽에서는 on으로 받습니다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socketArray = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//접속한 자의 소켓 배열에 담기!</span></span><br><span class="line">socketArray.push(socket);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"대화 참여자는 총 %d명"</span>,socketArray.length);</span><br><span class="line"></span><br><span class="line"><span class="comment">//받는 접속자는 on으로 받는다.</span></span><br><span class="line">socket.on(<span class="string">"message"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    <span class="comment">//방금 전달받은 메세지를 곧바로 다시 클라이언트에게 보낸다. </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i&lt; socketArray.length; i++)&#123;</span><br><span class="line">    </span><br><span class="line">                socketArray[i].emit(<span class="string">"message"</span>, data);</span><br><span class="line">            &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>그럼 client.html에서는 서버가 곧바로 보낸 메세지를 받아서<br>textarea에 출력합니다. </p>
+<blockquote>
+<p>이번 포스팅에서는 간단하게 웹소켓과 node.js를 이용한 stateful한 웹채팅창을 구현해 보았습니다.<br>다음 포스팅은 node.js서버와 database 연동 작업을 하겠습니다. </p>
+</blockquote>
+
+        </div>
+
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/03/node-js-2/" data-id="cjke4nkut0004l8277qgnzyt9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/2min_0nly/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/2minjeong" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="https://plus.google.com/u/0/101574005949064924489" target="_blank" rel="noopener">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/dlalswjd95-mis" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/08/03/node-js-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Node.js 구축하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Node-js/">Node.js</a></p>
+                            <p class="item-title"><a href="/2018/08/03/node-js-2/" class="title">Node.js로 채팅창 구현하기</a></p>
+                            <p class="item-date"><time datetime="2018-08-03T13:18:41.000Z" itemprop="datePublished">2018-08-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Node-js/">Node.js</a></p>
+                            <p class="item-title"><a href="/2018/08/03/node-js-1/" class="title">Node.js 구축하기</a></p>
+                            <p class="item-date"><time datetime="2018-08-03T08:03:19.000Z" itemprop="datePublished">2018-08-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/12/reduce함수/" class="title">_reduce함수-part2</a></p>
+                            <p class="item-date"><time datetime="2018-07-12T05:46:56.000Z" itemprop="datePublished">2018-07-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/11/get함수만들기/" class="title">_get함수만들기 - part2</a></p>
+                            <p class="item-date"><time datetime="2018-07-11T11:06:40.000Z" itemprop="datePublished">2018-07-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/11/커링함수만들기-curry-curryr/" class="title">커링함수만들기(_curry,_curryr)-part2</a></p>
+                            <p class="item-date"><time datetime="2018-07-11T09:47:24.000Z" itemprop="datePublished">2018-07-11</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node-js/">Node.js</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/get-get-javascript-programming-함수형프로그래밍/">_get, get, javascript, programming, 함수형프로그래밍</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reduce-reduce-programming-함수형프로그래밍-javascript/">_reduce, reduce, programming, 함수형프로그래밍, javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR/">javascript, FR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR-each-programming/">javascript, FR, each, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR-map-filter-programming/">javascript, FR, map, filter,  programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-curry-curryr-programming/">javascript, _curry, _curryr, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-다형성-programming/">javascript, 다형성, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js-javascript-webserver/">node.js, javascript, webserver</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/get-get-javascript-programming-함수형프로그래밍/" style="font-size: 10px;">_get, get, javascript, programming, 함수형프로그래밍</a> <a href="/tags/reduce-reduce-programming-함수형프로그래밍-javascript/" style="font-size: 10px;">_reduce, reduce, programming, 함수형프로그래밍, javascript</a> <a href="/tags/javascript-FR/" style="font-size: 10px;">javascript, FR</a> <a href="/tags/javascript-FR-each-programming/" style="font-size: 10px;">javascript, FR, each, programming</a> <a href="/tags/javascript-FR-map-filter-programming/" style="font-size: 10px;">javascript, FR, map, filter,  programming</a> <a href="/tags/javascript-curry-curryr-programming/" style="font-size: 10px;">javascript, _curry, _curryr, programming</a> <a href="/tags/javascript-다형성-programming/" style="font-size: 10px;">javascript, 다형성, programming</a> <a href="/tags/node-js-javascript-webserver/" style="font-size: 20px;">node.js, javascript, webserver</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 Minjeong Lee</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'dominonly';
+    
+    
+    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/08/03/node-js-2/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
