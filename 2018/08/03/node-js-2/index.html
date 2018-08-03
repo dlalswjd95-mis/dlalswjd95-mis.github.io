@@ -12,19 +12,19 @@
     
         <meta name="keywords" content="node.js, javascript, webserver" />
     
-    <meta name="description" content="node js로 채팅창 구현하기Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은">
+    <meta name="description" content="Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은 구현이 불가능하였습니다.그렇게">
 <meta name="keywords" content="node.js, javascript, webserver">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js로 채팅창 구현하기">
 <meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/08/03/node-js-2/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
-<meta property="og:description" content="node js로 채팅창 구현하기Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은">
+<meta property="og:description" content="Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은 구현이 불가능하였습니다.그렇게">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://dlalswjd95-mis.github.io/images/node_3.PNG">
-<meta property="og:updated_time" content="2018-08-03T15:11:35.546Z">
+<meta property="og:updated_time" content="2018-08-03T15:14:49.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js로 채팅창 구현하기">
-<meta name="twitter:description" content="node js로 채팅창 구현하기Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은">
+<meta name="twitter:description" content="Web socket의 등장원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에stateless하다고 표현합니다. 따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은 구현이 불가능하였습니다.그렇게">
 <meta name="twitter:image" content="http://dlalswjd95-mis.github.io/images/node_3.PNG">
     
 
@@ -168,11 +168,13 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="node-js로-채팅창-구현하기"><a href="#node-js로-채팅창-구현하기" class="headerlink" title="node js로 채팅창 구현하기"></a>node js로 채팅창 구현하기</h2><h3 id="Web-socket의-등장"><a href="#Web-socket의-등장" class="headerlink" title="Web socket의 등장"></a>Web socket의 등장</h3><p>원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에<br>실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에<br>stateless하다고 표현합니다.</p>
+            <h3 id="Web-socket의-등장"><a href="#Web-socket의-등장" class="headerlink" title="Web socket의 등장"></a>Web socket의 등장</h3><p>원래 기존의 웹기반의 기술에서는 html문서를 주고받는 다운로드기반의 http 프로토롤을 쓰기 때문에<br>실시간 연결이 유지되지 않았습니다. 즉, http를 사용하는 웹은 상태를 유지하지 못하기 때문에<br>stateless하다고 표현합니다.</p>
 <p>따라서 채팅과 같이 서버와 클라이언트가 지속적인 연결을 유지하는 기술은 구현이 불가능하였습니다.<br>그렇게 때문에 , 채팅을 제작하려면 java, c, c#과 같은 응용 프로그램을 이용해야 했습니다.</p>
 <p>그러나 HTML5에서 지원하는 Web Socket과 Node.js의 socket.io를 사용하면 웹상에서도 실시간 통신이<br>가능합니다. 즉, stateful한 것이라고 볼 수 있습니다. </p>
 <p>하지만 주의할 점이 있습니다. 웹소켓과 socket.io는 java, c#과 같은 언어에서 지원하는 소켓과는 틀리기 때문에<br>반드시 웹서버 위에서 구동됩니다.<br>따라서 기존에 node.js에서 구현하였던 웹서버 객체들은 그대로 사용해야 합니다. </p>
-<p>이전 포스팅에서 짰던 코드를 다시 복습해봅시다.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>); <span class="comment">//http객체 생성</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>); <span class="comment">//express외부모듈 객체로 받기</span></span><br><span class="line"><span class="keyword">var</span> app = express(); <span class="comment">//express생성자 객체생성 </span></span><br><span class="line"><span class="keyword">var</span> server = http.createServer(app); <span class="comment">// 기존 웹 서버 업그레이드 </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(express.static(__dirname)); <span class="comment">//클라이언트의 요청마다 조건문으로 라우팅 처리할 필요없음.</span></span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">8989</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//이번에는 8989포트에서 서버가동</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"웹서버 8989에서 가동중..."</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="node-js로-채팅창-구현하기"><a href="#node-js로-채팅창-구현하기" class="headerlink" title="node js로 채팅창 구현하기"></a>node js로 채팅창 구현하기</h2><p>이전 포스팅에서 짰던 코드를 다시 복습해봅시다. </p>
+<p>webserver1파일 안에 chatServer.js파일을 생성하고 아래 코드를 입력합니다. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>); <span class="comment">//http객체 생성</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>); <span class="comment">//express외부모듈 객체로 받기</span></span><br><span class="line"><span class="keyword">var</span> app = express(); <span class="comment">//express생성자 객체생성 </span></span><br><span class="line"><span class="keyword">var</span> server = http.createServer(app); <span class="comment">// 기존 웹 서버 업그레이드 </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(express.static(__dirname)); <span class="comment">//클라이언트의 요청마다 조건문으로 라우팅 처리할 필요없음.</span></span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">8989</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//이번에는 8989포트에서 서버가동</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"웹서버 8989에서 가동중..."</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>8989에서 가동하는 web server를 만들었습니다. </p>
 <p>이제 실시간 통신이 가능한 socket server를 만들어 보겠습니다. 이는 웹서버를 기반으로 돌아가기때문에<br>반드시 기존의 web server도 필요하다는 점을 잊으면 안됩니다!! </p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socketio = <span class="built_in">require</span>(<span class="string">"socket.io"</span>);</span><br></pre></td></tr></table></figure>
@@ -200,7 +202,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/08/03/node-js-2/" data-id="cjke4nkut0004l8277qgnzyt9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/03/node-js-2/" data-id="cjke4oje600014k275rkybosg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
