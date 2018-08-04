@@ -12,18 +12,18 @@
     
         <meta name="keywords" content="node.js, database, oracledb, javascript" />
     
-    <meta name="description" content="실습순서 글 등록하는 form을 생성하고 사용자의 입력을 받아 node.js를 통해 DB에 데이터를 입력합니다. 글 목록게시판을 만들고 node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 불러옵니다.   글을 등록하는 form 생성">
+    <meta name="description" content="실습순서 글 등록하는 form을 생성   사용자가 글등록시 node.js를 통해 DB에 데이터를 전송한다.  글 조회하는 목록게시판 생성   node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 게시판으로 불러온다    글을 등록하는 form 생성">
 <meta name="keywords" content="node.js, database, oracledb, javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js와 Oracledb연동하여 게시판만들기-part1">
 <meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/08/04/node-js-3/index.html">
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
-<meta property="og:description" content="실습순서 글 등록하는 form을 생성하고 사용자의 입력을 받아 node.js를 통해 DB에 데이터를 입력합니다. 글 목록게시판을 만들고 node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 불러옵니다.   글을 등록하는 form 생성">
+<meta property="og:description" content="실습순서 글 등록하는 form을 생성   사용자가 글등록시 node.js를 통해 DB에 데이터를 전송한다.  글 조회하는 목록게시판 생성   node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 게시판으로 불러온다    글을 등록하는 form 생성">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-04T14:05:12.797Z">
+<meta property="og:updated_time" content="2018-08-04T14:10:45.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js와 Oracledb연동하여 게시판만들기-part1">
-<meta name="twitter:description" content="실습순서 글 등록하는 form을 생성하고 사용자의 입력을 받아 node.js를 통해 DB에 데이터를 입력합니다. 글 목록게시판을 만들고 node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 불러옵니다.   글을 등록하는 form 생성">
+<meta name="twitter:description" content="실습순서 글 등록하는 form을 생성   사용자가 글등록시 node.js를 통해 DB에 데이터를 전송한다.  글 조회하는 목록게시판 생성   node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 게시판으로 불러온다    글을 등록하는 form 생성">
     
 
     
@@ -167,8 +167,14 @@
         
         <div class="article-entry" itemprop="articleBody">
             <h2 id="실습순서"><a href="#실습순서" class="headerlink" title="실습순서"></a><strong>실습순서</strong></h2><ol>
-<li>글 등록하는 form을 생성하고 사용자의 입력을 받아 node.js를 통해 DB에 데이터를 입력합니다.</li>
-<li>글 목록게시판을 만들고 node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 불러옵니다. </li>
+<li><p>글 등록하는 form을 생성 </p>
+</li>
+<li><p>사용자가 글등록시 node.js를 통해 DB에 데이터를 전송한다.</p>
+</li>
+<li><p>글 조회하는 목록게시판 생성 </p>
+</li>
+<li><p>node.js를 이용해 DB에 저장된 데이터를 페이징 처리와 함께 게시판으로 불러온다 </p>
+</li>
 </ol>
 <h2 id="글을-등록하는-form-생성"><a href="#글을-등록하는-form-생성" class="headerlink" title="글을 등록하는 form 생성"></a>글을 등록하는 form 생성</h2>
         </div>
@@ -178,7 +184,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/08/04/node-js-3/" data-id="cjke4yilr0005n827m5jhmd9m" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/04/node-js-3/" data-id="cjkfhsr4w0005iw27bp0tyn08" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
