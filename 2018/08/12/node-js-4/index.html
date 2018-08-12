@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
 <meta property="og:description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-12T10:40:53.812Z">
+<meta property="og:updated_time" content="2018-08-12T10:42:08.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="데이터베이스 쿼리문 (join)">
 <meta name="twitter:description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
@@ -178,8 +178,7 @@
 <p>분리가 된 테이블을 처음과 같이 하나처럼 보여줄 수 있는 select문을 가리켜 Join문이라고 합니다.<br>우리는 Join문을 통해 용도에 따라 알맞은 테이블 조합을 추출해낼 수 있습니다.<br>join문은 inner join과 outer join, 두가지 유형이 존재합니다. </p>
 <p>inner join은 두 테이블간에 외래키에 의해 공통된 레코드만 조회할 수 있는 문장입니다. </p>
 <p>먼저 join문이 아닌 단순 select문을 예시를 들어 풀이해봅시다. </p>
-<p>##단순 select문 </p>
-<p>Q1. 업무, 업무별 사원수를 업무별로 출력하라. </p>
+<h2 id="단순-select문"><a href="#단순-select문" class="headerlink" title="단순 select문"></a>단순 select문</h2><p>Q1. 업무, 업무별 사원수를 업무별로 출력하라. </p>
 <p>풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select job as 업무, count(job) as 사원수 from emp group by job;</span><br><span class="line">업무                사원수</span><br><span class="line">------------------ ----------</span><br><span class="line">CLERK                       4</span><br><span class="line">SALESMAN                    4</span><br><span class="line">PRESIDENT                   1</span><br><span class="line">MANAGER                     3</span><br><span class="line">ANALYST                     2</span><br></pre></td></tr></table></figure></p>
 <p>각 컬럼명은 별칭을 설정할 수 있습니다.<br>컬럼명 as ‘별칭’<br>단, as 는 생략가능. </p>
 <p>Q2. WARD라는 직원의 급여, 커미션을 출력하라. </p>
@@ -229,7 +228,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/" data-id="cjkqpy0bx0006vo27qwh5mk4b" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/" data-id="cjkqpzlts0006uo2799izks64" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
