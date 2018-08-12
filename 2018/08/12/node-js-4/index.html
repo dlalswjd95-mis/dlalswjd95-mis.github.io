@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="Dominoly&#39;s IT Blog">
 <meta property="og:description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-12T10:38:05.687Z">
+<meta property="og:updated_time" content="2018-08-12T10:40:53.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="데이터베이스 쿼리문 (join)">
 <meta name="twitter:description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
@@ -197,8 +197,7 @@
 <p>Q6. 급여를 제일 적게 받는 직원의 이름, 급여, 업무를 출력해라. </p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ename, sal, job from emp where sal = (select min(sal) from emp);</span><br><span class="line"></span><br><span class="line">ENAME                       SAL JOB</span><br><span class="line">-------------------- ---------- ------------------</span><br><span class="line">SMITH                       800 CLERK</span><br></pre></td></tr></table></figure>
 <p>기존 쿼리문 안에 ()로 감싸서 또 쿼리문을 작성할 수 있습니다.<br>괄호안에 들어가는 쿼리문을 서브쿼리라고 합니다. </p>
-<p>##inner조인문</p>
-<p>Q1. 최대급여를 받는 직원의 이름과 급여, 부서번호, 부서명을 출력해라 </p>
+<h2 id="inner조인문"><a href="#inner조인문" class="headerlink" title="inner조인문"></a>inner조인문</h2><p>Q1. 최대급여를 받는 직원의 이름과 급여, 부서번호, 부서명을 출력해라 </p>
 <p>풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ename, sal, d.deptno, dname from emp e, dept d where e.deptno = d.deptno and sal = (select max(sal) from emp);</span><br><span class="line"></span><br><span class="line">ENAME                       SAL     DEPTNO DNAME</span><br><span class="line">-------------------- ---------- ---------- ----------------------------</span><br><span class="line">KING                       5000         10 ACCOUNTING</span><br></pre></td></tr></table></figure></p>
 <p>조인을 하는 이유: 부서명 컬럼은 emp테이블에 존재하지 않으므로 그냥 from emp만 할 경우에는 출력할 수 없다.<br>그러므로 두 테이블간 공통된 외래키인 deptno가 같아야 한다는 조건을 포함시켜 조인처리를 해야한다. </p>
 <p>Q2. 업무를 업무별로 출력해라. </p>
@@ -230,7 +229,7 @@
 
 
 
-    <a data-url="http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/" data-id="cjkqpupcx00012w27st4qrnw8" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/" data-id="cjkqpy0bx0006vo27qwh5mk4b" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
