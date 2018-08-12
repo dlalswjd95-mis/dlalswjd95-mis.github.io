@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>데이터베이스 쿼리문 (join) | Dominoly&#39;s IT Blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="database, oracledb, query, inner join, outer join" />
+    
+    <meta name="description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
+<meta name="keywords" content="database, oracledb, query, inner join, outer join">
+<meta property="og:type" content="article">
+<meta property="og:title" content="데이터베이스 쿼리문 (join)">
+<meta property="og:url" content="http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/index.html">
+<meta property="og:site_name" content="Dominoly&#39;s IT Blog">
+<meta property="og:description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-12T10:38:05.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="데이터베이스 쿼리문 (join)">
+<meta name="twitter:description" content="이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.  테이블 생성이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.다음은 회사의 부서와 사원관리를 위한 테이블입니다. 1234567891011121314151617181920212223SQL&amp;gt; ---------------------------------------------">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://dlalswjd95-mis.github.io/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Javascript/">Javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Node-js/">Node.js</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/oracle/">oracle</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://about.me/minjeong">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/oracle/">oracle</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-node-js-4" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        데이터베이스 쿼리문 (join)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/08/12/node-js-4/" class="article-date">
+            <time datetime="2018-08-12T09:03:09.000Z" itemprop="datePublished">2018-08-12</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/database-oracledb-query-inner-join-outer-join/">database, oracledb, query, inner join, outer join</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>이번 포스팅에선 실제 실무에서 유용하게 쓰이는 join문에 대해서 알아보겠습니다.</p>
+</blockquote>
+<h2 id="테이블-생성"><a href="#테이블-생성" class="headerlink" title="테이블 생성"></a>테이블 생성</h2><p>이해를 돕기 위해 샘플 테이블을 먼저 생성합니다.<br>다음은 회사의 부서와 사원관리를 위한 테이블입니다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; --------------------------------------------------------------</span><br><span class="line">SQL&gt; -- 부서 테이블 생성/레코드 넣기</span><br><span class="line">SQL&gt; --------------------------------------------------------------</span><br><span class="line">SQL&gt; create table dept(</span><br><span class="line">  2  deptno number</span><br><span class="line">  3  ,dname varchar2(14)</span><br><span class="line">  4  ,loc varchar2(13)</span><br><span class="line">  5  ,primary key(deptno)</span><br><span class="line">  6  );</span><br><span class="line">SQL&gt; --------------------------------------------------------------</span><br><span class="line">SQL&gt; -- 사원 테이블 생성/레코드 넣기</span><br><span class="line">SQL&gt; --------------------------------------------------------------</span><br><span class="line">SQL&gt; create table emp(</span><br><span class="line">  2  empno number</span><br><span class="line">  3  ,ename varchar2(10)</span><br><span class="line">  4  ,job varchar2(9)</span><br><span class="line">  5  ,mgr number</span><br><span class="line">  6  ,hiredate date</span><br><span class="line">  7  ,sal number</span><br><span class="line">  8  ,comm number</span><br><span class="line">  9  ,deptno number</span><br><span class="line"> 10  ,primary key(empno)</span><br><span class="line"> 11  );</span><br></pre></td></tr></table></figure>
+<p>14개 정도의 정보를 입력합니다. </p>
+<p>결과물은 다음과 같습니다. </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from emp;</span><br><span class="line"></span><br><span class="line"><span class="code">     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO</span></span><br><span class="line">---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------</span><br><span class="line"><span class="code">      7369 SMITH                CLERK                    7902 80/12/17        800                    20</span></span><br><span class="line"><span class="code">      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30</span></span><br><span class="line"><span class="code">      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30</span></span><br><span class="line"><span class="code">      7566 JONES                MANAGER                  7839 81/04/02       2975                    20</span></span><br><span class="line"><span class="code">      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30</span></span><br><span class="line"><span class="code">      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30</span></span><br><span class="line"><span class="code">      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10</span></span><br><span class="line"><span class="code">      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20</span></span><br><span class="line"><span class="code">      7839 KING                 PRESIDENT                     81/11/17       5000                    10</span></span><br><span class="line"><span class="code">      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30</span></span><br><span class="line"><span class="code">      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20</span></span><br><span class="line"><span class="code">      7900 JAMES                CLERK                    7698 81/12/03        950                    30</span></span><br><span class="line"><span class="code">      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20</span></span><br><span class="line"><span class="code">      7934 MILLER               CLERK                    7782 82/01/23       1300                    10</span></span><br><span class="line"></span><br><span class="line">14 rows selected.</span><br><span class="line"></span><br><span class="line">SQL&gt; select * from dept;</span><br><span class="line"></span><br><span class="line"><span class="code">    DEPTNO DNAME                        LOC</span></span><br><span class="line">---------- ---------------------------- --------------------------</span><br><span class="line"><span class="code">        10 ACCOUNTING                   NEW YORK</span></span><br><span class="line"><span class="code">        20 RESEARCH                     DALLAS</span></span><br><span class="line"><span class="code">        30 SALES                        CHICAGO</span></span><br><span class="line"><span class="code">        40 OPERATIONS                   BOSTON</span></span><br></pre></td></tr></table></figure>
+<p>위의 테이블은 정규화작업을 모두 거친 상태입니다.<br><em>정규화</em>란 관계형 데이터베이스를 설계할 때 중복을 최소화하도록 데이터를 구조화하는 작업을 말합니다.<br>중복을 제거하는 과정에서 위처럼 테이블이 두가지로 분리됩니다. </p>
+<p>분리가 된 테이블을 처음과 같이 하나처럼 보여줄 수 있는 select문을 가리켜 Join문이라고 합니다.<br>우리는 Join문을 통해 용도에 따라 알맞은 테이블 조합을 추출해낼 수 있습니다.<br>join문은 inner join과 outer join, 두가지 유형이 존재합니다. </p>
+<p>inner join은 두 테이블간에 외래키에 의해 공통된 레코드만 조회할 수 있는 문장입니다. </p>
+<p>먼저 join문이 아닌 단순 select문을 예시를 들어 풀이해봅시다. </p>
+<p>##단순 select문 </p>
+<p>Q1. 업무, 업무별 사원수를 업무별로 출력하라. </p>
+<p>풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select job as 업무, count(job) as 사원수 from emp group by job;</span><br><span class="line">업무                사원수</span><br><span class="line">------------------ ----------</span><br><span class="line">CLERK                       4</span><br><span class="line">SALESMAN                    4</span><br><span class="line">PRESIDENT                   1</span><br><span class="line">MANAGER                     3</span><br><span class="line">ANALYST                     2</span><br></pre></td></tr></table></figure></p>
+<p>각 컬럼명은 별칭을 설정할 수 있습니다.<br>컬럼명 as ‘별칭’<br>단, as 는 생략가능. </p>
+<p>Q2. WARD라는 직원의 급여, 커미션을 출력하라. </p>
+<p>풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select sal, comm from emp where ename='WARD';</span><br><span class="line"><span class="code">       SAL       COMM</span></span><br><span class="line">---------- ----------</span><br><span class="line"><span class="code">      1250        500</span></span><br></pre></td></tr></table></figure></p>
+<p>Q3. 커미션을 하지 않은 직원들의 이름을 출력하라.</p>
+<p>풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ename from emp where comm is NULL;</span><br><span class="line"></span><br><span class="line">ENAME</span><br><span class="line">--------------------</span><br><span class="line">SMITH</span><br><span class="line">JONES</span><br><span class="line">BLAKE</span><br><span class="line">CLARK</span><br><span class="line">SCOTT</span><br><span class="line">KING</span><br><span class="line">ADAMS</span><br><span class="line">JAMES</span><br><span class="line">FORD</span><br><span class="line">MILLER</span><br></pre></td></tr></table></figure></p>
+<p>SQL문에서는 값이 존재하지 않는 셀(0이 들어있으면 값이 있는 것입니다. )을 지칭할 때<br><strong>is null</strong> 이라는 용어를 사용합니다. </p>
+<p>Q4. 81/06/09 보다 늦게 입사한 사원의 이름, 입사일을 출력해라. </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ename, hiredate from emp where hiredate &gt; '81/06/09';</span><br><span class="line"></span><br><span class="line">ENAME                HIREDATE</span><br><span class="line">-------------------- --------</span><br><span class="line">MARTIN               81/09/28</span><br><span class="line">SCOTT                87/04/19</span><br><span class="line">KING                 81/11/17</span><br><span class="line">TURNER               81/09/08</span><br><span class="line">ADAMS                87/05/23</span><br><span class="line">JAMES                81/12/03</span><br><span class="line">FORD                 81/12/03</span><br><span class="line">MILLER               82/01/23</span><br><span class="line"><span class="code">``` </span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">Q5. 모든 사원들의 급여에서 1000이 높혀진 급여와 사원이름을 출력해라. </span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">SQL&gt; select ename, sal+1000 from emp;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">ENAME                  SAL+1000</span></span><br><span class="line"><span class="code">-------------------- ----------</span></span><br><span class="line"><span class="code">SMITH                      1800</span></span><br><span class="line"><span class="code">ALLEN                      2600</span></span><br><span class="line"><span class="code">WARD                       2250</span></span><br><span class="line"><span class="code">JONES                      3975</span></span><br><span class="line"><span class="code">MARTIN                     2250</span></span><br><span class="line"><span class="code">BLAKE                      3850</span></span><br><span class="line"><span class="code">CLARK                      3450</span></span><br><span class="line"><span class="code">SCOTT                      4000</span></span><br><span class="line"><span class="code">KING                       6000</span></span><br><span class="line"><span class="code">TURNER                     2500</span></span><br><span class="line"><span class="code">ADAMS                      2100</span></span><br><span class="line"><span class="code">JAMES                      1950</span></span><br><span class="line"><span class="code">FORD                       4000</span></span><br><span class="line"><span class="code">MILLER                     2300</span></span><br></pre></td></tr></table></figure>
+<p>여기서 잠깐!! 테이블의 구조를 보여주는 sql문은 다음과 같습니다. </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; desc '테이블명'</span><br></pre></td></tr></table></figure>
+<p>통계값을 구하고 싶을 때는 다음과 같은 식을 사용합니다 .<br>최대 –&gt; max(칼럼명)<br>최소 –&gt; min(칼럼명)<br>평균 –&gt; avg(칼럼명)<br>갯수 –&gt; count(칼럼명)<br>합계 –&gt; sum(칼럼명)</p>
+<p>Q5. 모든 직원들의 최대급여, 최소급여, 급여평균, 급여개수, 급여합을 출력해라.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select max(sal) 최대값, min(sal) 최소값, avg(sal) 평균값, count(sal) 총갯수, sum(sal) 합계 from emp;</span><br><span class="line"></span><br><span class="line"><span class="code">    최대값     최소값     평균값     총갯수       합계</span></span><br><span class="line">---------- ---------- ---------- ---------- ----------</span><br><span class="line"><span class="code">      5000        800 2073.21429         14      29025</span></span><br></pre></td></tr></table></figure>
+<p>Q6. 급여를 제일 적게 받는 직원의 이름, 급여, 업무를 출력해라. </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ename, sal, job from emp where sal = (select min(sal) from emp);</span><br><span class="line"></span><br><span class="line">ENAME                       SAL JOB</span><br><span class="line">-------------------- ---------- ------------------</span><br><span class="line">SMITH                       800 CLERK</span><br></pre></td></tr></table></figure>
+<p>기존 쿼리문 안에 ()로 감싸서 또 쿼리문을 작성할 수 있습니다.<br>괄호안에 들어가는 쿼리문을 서브쿼리라고 합니다. </p>
+<p>##inner조인문</p>
+<p>Q1. 최대급여를 받는 직원의 이름과 급여, 부서번호, 부서명을 출력해라 </p>
+<p>풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ename, sal, d.deptno, dname from emp e, dept d where e.deptno = d.deptno and sal = (select max(sal) from emp);</span><br><span class="line"></span><br><span class="line">ENAME                       SAL     DEPTNO DNAME</span><br><span class="line">-------------------- ---------- ---------- ----------------------------</span><br><span class="line">KING                       5000         10 ACCOUNTING</span><br></pre></td></tr></table></figure></p>
+<p>조인을 하는 이유: 부서명 컬럼은 emp테이블에 존재하지 않으므로 그냥 from emp만 할 경우에는 출력할 수 없다.<br>그러므로 두 테이블간 공통된 외래키인 deptno가 같아야 한다는 조건을 포함시켜 조인처리를 해야한다. </p>
+<p>Q2. 업무를 업무별로 출력해라. </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select job from emp group by job;</span><br><span class="line"></span><br><span class="line">JOB</span><br><span class="line">------------------</span><br><span class="line">CLERK</span><br><span class="line">SALESMAN</span><br><span class="line">PRESIDENT</span><br><span class="line">MANAGER</span><br><span class="line">ANALYST</span><br></pre></td></tr></table></figure>
+<p>group by을 사용시 주의할 점!!<br>select절에서 명시한 조회 대상이 되는 컬럼은 group by 뒤에 명시한 컬럼만 올수 있다.<br>단, select절에서 명시한 조회 대상 중 count(),sum(),avg()와 같은 집계함수는 예외이다.</p>
+<h2 id="Outer-Join문"><a href="#Outer-Join문" class="headerlink" title="Outer Join문"></a>Outer Join문</h2><p>inner join은 테이블 간의 공통된 부분만을 추출합니다.</p>
+<p>만약, 댓글 게시판을 구축한다고 가정합시다.<br>누군가 글을 작성하면 거기에 달린 댓글의 수를 명시하고 싶다면<br>inner join을 사용해야 할까? 아니면 outer join을 사용해야 할까?</p>
+<p>힌트를 주자면, 댓글이 달리지 않은 글도 게시판에서 사라지면 안됩니다…</p>
+<p>비슷한 예시를 들어 설명해보겠습니다.</p>
+<p>ex) 부서명과 각 부서별 직원의 수를 출력해라!! </p>
+<p>inner join으로 풀이<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select dname, count(ename) from dept d, emp e where d.deptno = e.deptno group by dname;</span><br><span class="line"></span><br><span class="line">DNAME                        COUNT(ENAME)</span><br><span class="line">---------------------------- ------------</span><br><span class="line">ACCOUNTING                              3</span><br><span class="line">RESEARCH                                5</span><br><span class="line">SALES                                   6</span><br></pre></td></tr></table></figure></p>
+<p>사원 수가 0인 부서는 자연스럽게 제외된 것을 확인 할 수 있습니다.</p>
+<p>만약 사원 수가 없는 operation부서도 출력하고 싶다면 어떻게 할까요!?</p>
+<p>바로 <strong>outer join</strong>을 사용하면 됩니다.<br>형태는 다음과 같습니다.<br>select ‘칼럼명’ from ‘무조건 다 남기고 싶은 테이블명’ left outer join ‘또다른 테이블명’ on 조건문 group by 컬럼명;</p>
+<p>inner join에서 where을 썻다면 outer join에서는 on 을 사용합니다.<br>그리고 이번 예시같은 경우 부서명은 하나도 빠짐없이 모두 남기고 싶은 테이블이되겠죠.<br>그러니까 제일 처음 테이블명으로 입력하고 그 뒤에 나머지 테이블명을 적으면 됩니다. </p>
+<p>outer join을 적용한 쿼리문<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select dname, count(ename) from dept d left outer join emp e on d.deptno = e.deptno group by dname;</span><br><span class="line"></span><br><span class="line">DNAME                        COUNT(ENAME)</span><br><span class="line">---------------------------- ------------</span><br><span class="line">ACCOUNTING                              3</span><br><span class="line">OPERATIONS                              0</span><br><span class="line">RESEARCH                                5</span><br><span class="line">SALES                                   6</span><br></pre></td></tr></table></figure></p>
+<p>댓글게시판의 경우도 아주 비슷합니다. </p>
+<blockquote>
+<p>댓글을 사원이라고 생각하고, 기존 작성글을 부서라고 생각해보겠습니다.</p>
+</blockquote>
+<p>댓글 수가 0인 작성글도 출력하고 싶어요. </p>
+<p>그럼 당연히 outer join을 쓰는 것이 맞겠죠! </p>
+<p>다음 포스팅에서는 실제로 댓글 게시판을 만들어 보겠습니다.</p>
+
+        </div>
+
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/" data-id="cjkqpupcx00012w27st4qrnw8" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/2min_0nly/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/2minjeong" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="https://plus.google.com/u/0/101574005949064924489" target="_blank" rel="noopener">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/dlalswjd95-mis" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/08/04/node-js-3/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Node.js와 Oracledb연동하여 게시판만들기-part1</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/oracle/">oracle</a></p>
+                            <p class="item-title"><a href="/2018/08/12/node-js-4/" class="title">데이터베이스 쿼리문 (join)</a></p>
+                            <p class="item-date"><time datetime="2018-08-12T09:03:09.000Z" itemprop="datePublished">2018-08-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Node-js/">Node.js</a></p>
+                            <p class="item-title"><a href="/2018/08/04/node-js-3/" class="title">Node.js와 Oracledb연동하여 게시판만들기-part1</a></p>
+                            <p class="item-date"><time datetime="2018-08-03T15:16:57.000Z" itemprop="datePublished">2018-08-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Node-js/">Node.js</a></p>
+                            <p class="item-title"><a href="/2018/08/03/node-js-2/" class="title">Node.js로 채팅창 구현하기</a></p>
+                            <p class="item-date"><time datetime="2018-08-03T13:18:41.000Z" itemprop="datePublished">2018-08-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Node-js/">Node.js</a></p>
+                            <p class="item-title"><a href="/2018/08/03/node-js-1/" class="title">Node.js 구축하기</a></p>
+                            <p class="item-date"><time datetime="2018-08-03T08:03:19.000Z" itemprop="datePublished">2018-08-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2018/07/12/reduce함수/" class="title">_reduce함수-part2</a></p>
+                            <p class="item-date"><time datetime="2018-07-12T05:46:56.000Z" itemprop="datePublished">2018-07-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node-js/">Node.js</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/oracle/">oracle</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/get-get-javascript-programming-함수형프로그래밍/">_get, get, javascript, programming, 함수형프로그래밍</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reduce-reduce-programming-함수형프로그래밍-javascript/">_reduce, reduce, programming, 함수형프로그래밍, javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database-oracledb-query-inner-join-outer-join/">database, oracledb, query, inner join, outer join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR/">javascript, FR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR-each-programming/">javascript, FR, each, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-FR-map-filter-programming/">javascript, FR, map, filter,  programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-curry-curryr-programming/">javascript, _curry, _curryr, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-다형성-programming/">javascript, 다형성, programming</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js-database-oracledb-javascript/">node.js, database, oracledb, javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js-javascript-webserver/">node.js, javascript, webserver</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js-javascript-webserver-websocket-stateful-socket-socket-io/">node.js, javascript, webserver, websocket, stateful, socket, socket.io</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/get-get-javascript-programming-함수형프로그래밍/" style="font-size: 10px;">_get, get, javascript, programming, 함수형프로그래밍</a> <a href="/tags/reduce-reduce-programming-함수형프로그래밍-javascript/" style="font-size: 10px;">_reduce, reduce, programming, 함수형프로그래밍, javascript</a> <a href="/tags/database-oracledb-query-inner-join-outer-join/" style="font-size: 10px;">database, oracledb, query, inner join, outer join</a> <a href="/tags/javascript-FR/" style="font-size: 10px;">javascript, FR</a> <a href="/tags/javascript-FR-each-programming/" style="font-size: 10px;">javascript, FR, each, programming</a> <a href="/tags/javascript-FR-map-filter-programming/" style="font-size: 10px;">javascript, FR, map, filter,  programming</a> <a href="/tags/javascript-curry-curryr-programming/" style="font-size: 10px;">javascript, _curry, _curryr, programming</a> <a href="/tags/javascript-다형성-programming/" style="font-size: 10px;">javascript, 다형성, programming</a> <a href="/tags/node-js-database-oracledb-javascript/" style="font-size: 10px;">node.js, database, oracledb, javascript</a> <a href="/tags/node-js-javascript-webserver/" style="font-size: 10px;">node.js, javascript, webserver</a> <a href="/tags/node-js-javascript-webserver-websocket-stateful-socket-socket-io/" style="font-size: 10px;">node.js, javascript, webserver, websocket, stateful, socket, socket.io</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 Minjeong Lee</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'dominonly';
+    
+    
+    var disqus_url = 'http://dlalswjd95-mis.github.io/2018/08/12/node-js-4/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
